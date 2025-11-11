@@ -103,7 +103,7 @@
         <nav class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
                 <!-- Logo and Back to Home -->
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-3 sm:space-x-4 md:space-x-5">
                     <a href="../index.html" class="p-2 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors" aria-label="返回首页">
                         <i data-lucide="arrow-left" class="w-5 h-5 text-text-secondary"></i>
                     </a>
@@ -166,12 +166,12 @@
             <div class="container mx-auto px-4 relative z-10">
                 <div class="max-w-4xl mx-auto text-center">
                     <h1 class="hero-title text-5xl md:text-7xl font-bold mb-6">
-                        <span class="gradient-text">Google Developer Groups & DevFest</span>
+                        <span class="gradient-text" data-i18n="gdgDevFest.hero.title">Google Developer Groups & DevFest</span>
                     </h1>
-                    <p class="hero-subtitle text-xl md:text-2xl text-text-secondary mb-8">
+                    <p class="hero-subtitle text-xl md:text-2xl text-text-secondary mb-8" data-i18n="gdgDevFest.hero.subtitle">
                         Connecting developers through community-led events worldwide
                     </p>
-                    <p class="hero-description text-lg text-text-secondary mb-12 leading-relaxed max-w-3xl mx-auto">
+                    <p class="hero-description text-lg text-text-secondary mb-12 leading-relaxed max-w-3xl mx-auto" data-i18n="gdgDevFest.hero.description">
                         DevFest is an annual, global, community-led tech conference organized by Google Developer Groups.
                         It's a celebration of developer community, innovation, and learning.
                     </p>
@@ -180,19 +180,19 @@
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
                         <div class="stat-card p-6 surface-elevated rounded-xl border border-border-primary">
                             <div class="text-3xl font-bold text-primary-600 mb-2">800K+</div>
-                            <div class="text-text-secondary text-sm">Global Developers</div>
+                            <div class="text-text-secondary text-sm" data-i18n="gdgDevFest.hero.stats.globalDevelopers">Global Developers</div>
                         </div>
                         <div class="stat-card p-6 surface-elevated rounded-xl border border-border-primary">
                             <div class="text-3xl font-bold text-primary-600 mb-2">550+</div>
-                            <div class="text-text-secondary text-sm">DevFest Events</div>
+                            <div class="text-text-secondary text-sm" data-i18n="gdgDevFest.hero.stats.devfestEvents">DevFest Events</div>
                         </div>
                         <div class="stat-card p-6 surface-elevated rounded-xl border border-border-primary">
                             <div class="text-3xl font-bold text-primary-600 mb-2">100+</div>
-                            <div class="text-text-secondary text-sm">Countries</div>
+                            <div class="text-text-secondary text-sm" data-i18n="gdgDevFest.hero.stats.countries">Countries</div>
                         </div>
                         <div class="stat-card p-6 surface-elevated rounded-xl border border-border-primary">
                             <div class="text-3xl font-bold text-primary-600 mb-2">1000s</div>
-                            <div class="text-text-secondary text-sm">Sessions</div>
+                            <div class="text-text-secondary text-sm" data-i18n="gdgDevFest.hero.stats.sessions">Sessions</div>
                         </div>
                     </div>
                 </div>
@@ -202,16 +202,16 @@
         <!-- Why Attend DevFest Section -->
         <section class="py-20 surface-elevated">
             <div class="container mx-auto px-4">
-                <h2 class="section-title text-4xl font-bold text-center mb-16 gradient-text">Why Attend DevFest?</h2>
+                <h2 class="section-title text-4xl font-bold text-center mb-16 gradient-text" data-i18n="gdgDevFest.whyAttend.title">Why Attend DevFest?</h2>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
                     <!-- Learn -->
                     <div class="text-center">
-                        <div class="why-attend-icon w-20 h-20 bg-primary-100 dark:bg-primary-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                            <i data-lucide="book-open" class="w-10 h-10 text-primary-600 dark:text-primary-400"></i>
+                        <div class="why-attend-icon w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i data-lucide="book-open" class="w-10 h-10 text-secondary-600 dark:text-secondary-400"></i>
                         </div>
-                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary">Learn</h3>
-                        <p class="why-attend-description text-text-secondary leading-relaxed">
+                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary" data-i18n="gdgDevFest.whyAttend.learn.title">Learn</h3>
+                        <p class="why-attend-description text-text-secondary leading-relaxed" data-i18n="gdgDevFest.whyAttend.learn.description">
                             Latest in Google technologies and open-source tools
                         </p>
                     </div>
@@ -221,8 +221,8 @@
                         <div class="why-attend-icon w-20 h-20 bg-secondary-100 dark:bg-secondary-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
                             <i data-lucide="users" class="w-10 h-10 text-secondary-600 dark:text-secondary-400"></i>
                         </div>
-                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary">Network</h3>
-                        <p class="why-attend-description text-text-secondary leading-relaxed">
+                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary" data-i18n="gdgDevFest.whyAttend.network.title">Network</h3>
+                        <p class="why-attend-description text-text-secondary leading-relaxed" data-i18n="gdgDevFest.whyAttend.network.description">
                             With developers and industry experts
                         </p>
                     </div>
@@ -232,8 +232,8 @@
                         <div class="why-attend-icon w-20 h-20 bg-accent-100 dark:bg-accent-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
                             <i data-lucide="code" class="w-10 h-10 text-accent-600 dark:text-accent-400"></i>
                         </div>
-                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary">Hands-on</h3>
-                        <p class="why-attend-description text-text-secondary leading-relaxed">
+                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary" data-i18n="gdgDevFest.whyAttend.handsOn.title">Hands-on</h3>
+                        <p class="why-attend-description text-text-secondary leading-relaxed" data-i18n="gdgDevFest.whyAttend.handsOn.description">
                             Experience through workshops and code labs
                         </p>
                     </div>
@@ -243,8 +243,8 @@
                         <div class="why-attend-icon w-20 h-20 bg-success-100 dark:bg-success-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
                             <i data-lucide="compass" class="w-10 h-10 text-success-600 dark:text-success-400"></i>
                         </div>
-                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary">Discover</h3>
-                        <p class="why-attend-description text-text-secondary leading-relaxed">
+                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary" data-i18n="gdgDevFest.whyAttend.discover.title">Discover</h3>
+                        <p class="why-attend-description text-text-secondary leading-relaxed" data-i18n="gdgDevFest.whyAttend.discover.description">
                             Innovative solutions and best practices
                         </p>
                     </div>
@@ -254,8 +254,8 @@
                         <div class="why-attend-icon w-20 h-20 bg-warning-100 dark:bg-warning-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
                             <i data-lucide="link" class="w-10 h-10 text-warning-600 dark:text-warning-400"></i>
                         </div>
-                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary">Connect</h3>
-                        <p class="why-attend-description text-text-secondary leading-relaxed">
+                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary" data-i18n="gdgDevFest.whyAttend.connect.title">Connect</h3>
+                        <p class="why-attend-description text-text-secondary leading-relaxed" data-i18n="gdgDevFest.whyAttend.connect.description">
                             Build lasting developer community relationships
                         </p>
                     </div>
@@ -267,7 +267,7 @@
         <section class="py-20 surface-base">
             <div class="container mx-auto px-4">
                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
+                    <h2 class="text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up" data-i18n="gdgDevFest.whatAreGDGs.title">
                         What are Google Developer Groups?
                     </h2>
 
@@ -275,17 +275,17 @@
                         <div class="text-center">
                             <i class="gdg-intro-icon data-lucide users" class="w-16 h-16 text-primary-600 mx-auto mb-6"></i>
                             <div class="gdg-intro-text">
-                                <p class="text-lg text-text-secondary leading-relaxed mb-6">
+                                <p class="text-lg text-text-secondary leading-relaxed mb-6" data-i18n="gdgDevFest.whatAreGDGs.description">
                                     Google Developer Groups (GDGs) are local communities of developers who come together to learn, share, and connect around Google technologies. These groups organize regular meetups, workshops, and events to help developers build solutions and grow their skills.
                                 </p>
-                                <p class="text-text-secondary leading-relaxed">
+                                <p class="text-text-secondary leading-relaxed" data-i18n="gdgDevFest.whatAreGDGs.description2">
                                     GDGs are not affiliated with Google but are developer-led groups passionate about technology and helping others succeed in their development journey. They provide a platform for developers to network, collaborate, and learn from each other.
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <h2 class="section-title text-4xl font-bold text-center mb-16 gradient-text">
+                    <h2 class="section-title text-4xl font-bold text-center mb-16 gradient-text" data-i18n="gdgDevFest.whatAreGDGs.globalImpact.title">
                         DevFest's Global Impact
                     </h2>
 
@@ -293,9 +293,9 @@
                         <!-- Impact Card 1 -->
                         <div class="impact-card p-8 surface-elevated rounded-xl border border-border-primary card-hover">
                             <div class="text-center">
-                                <i data-lucide="heart" class="w-12 h-12 text-primary-600 mx-auto mb-4"></i>
-                                <h3 class="text-xl font-semibold mb-3 text-text-primary">Community Celebration</h3>
-                                <p class="text-text-secondary leading-relaxed">
+                                <i data-lucide="heart" class="w-12 h-12 text-secondary-600 mx-auto mb-4"></i>
+                                <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="gdgDevFest.whatAreGDGs.globalImpact.communityCelebration.title">Community Celebration</h3>
+                                <p class="text-text-secondary leading-relaxed" data-i18n="gdgDevFest.whatAreGDGs.globalImpact.communityCelebration.description">
                                     DevFest brings together developers from all backgrounds, skill levels, and industries. It's a celebration of diversity, innovation, and the power of community.
                                 </p>
                             </div>
@@ -305,8 +305,8 @@
                         <div class="impact-card p-8 surface-elevated rounded-xl border border-border-primary card-hover">
                             <div class="text-center">
                                 <i data-lucide="rocket" class="w-12 h-12 text-secondary-600 mx-auto mb-4"></i>
-                                <h3 class="text-xl font-semibold mb-3 text-text-primary">Building Future Leaders</h3>
-                                <p class="text-text-secondary leading-relaxed">
+                                <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="gdgDevFest.whatAreGDGs.globalImpact.buildingFutureLeaders.title">Building Future Leaders</h3>
+                                <p class="text-text-secondary leading-relaxed" data-i18n="gdgDevFest.whatAreGDGs.globalImpact.buildingFutureLeaders.description">
                                     Many DevFest attendees go on to become speakers, organizers, open-source contributors, and tech leaders in their communities. It's about building the next generation of developers and innovators.
                                 </p>
                             </div>
@@ -315,7 +315,7 @@
 
                     <!-- Quote Section -->
                     <div class="mt-16 p-8 bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-xl border border-border-primary impact-quote">
-                        <blockquote class="text-center text-xl text-text-secondary italic leading-relaxed">
+                        <blockquote class="text-center text-xl text-text-secondary italic leading-relaxed" data-i18n="gdgDevFest.whatAreGDGs.globalImpact.quote">
                             "The impact extends beyond the events themselves – it's about creating a global network of passionate developers who support each other's growth and contribute to building innovative solutions for tomorrow's challenges."
                         </blockquote>
                     </div>
@@ -336,17 +336,17 @@
                     </div>
                     <h3 class="text-xl font-bold gradient-text">GDG DevFest</h3>
                 </div>
-                <p class="text-text-secondary mb-6">
+                <p class="text-text-secondary mb-6" data-i18n="gdgDevFest.footer.description">
                     全球开发者社区，连接技术、创新与未来
                 </p>
                 <div class="flex justify-center space-x-6">
-                    <a href="../index.html" class="text-text-secondary hover:text-primary-600 transition-colors">返回首页</a>
-                    <a href="../pages/devtools-mcp.html" class="text-text-secondary hover:text-primary-600 transition-colors">DevTools MCP</a>
-                    <a href="../pages/about-me.html" class="text-text-secondary hover:text-primary-600 transition-colors">关于我</a>
+                    <a href="../index.html" class="text-text-secondary hover:text-primary-600 transition-colors" data-i18n="footer.backToHome">返回首页</a>
+                    <a href="../pages/devtools-mcp.html" class="text-text-secondary hover:text-primary-600 transition-colors" data-i18n="navigation.devToolsMCP">DevTools MCP</a>
+                    <a href="../pages/about-me.html" class="text-text-secondary hover:text-primary-600 transition-colors" data-i18n="navigation.about">关于我</a>
                 </div>
                 <div class="mt-8 pt-8 border-t border-border-primary">
-                    <p class="text-text-tertiary text-sm">
-                        © 2024 Chrome DevTools MCP Server Workshop.
+                    <p class="text-text-tertiary text-sm" data-i18n="footer.copyright">
+                        © 2025 Chrome DevTools MCP Server Workshop.
                     </p>
                 </div>
             </div>

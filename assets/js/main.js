@@ -145,10 +145,19 @@ class App {
       this.handleResize();
     }, 250));
 
-    // Listen for scroll events (throttled)
+    // Listen for scroll events (throttled for performance, but also immediate for navigation)
     window.addEventListener('scroll', this.throttle(() => {
       this.handleScroll();
-    }, 16)); // ~60fps
+    }, 16)); // ~60fps for general scroll handling
+
+    // Immediate scroll handling for navigation header
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const header = document.querySelector('[data-header]');
+      if (header) {
+        header.classList.toggle('scrolled', scrollY > 20);
+      }
+    });
 
     // Handle keyboard navigation
     document.addEventListener('keydown', (event) => {
@@ -184,7 +193,36 @@ class App {
     if (typedElement && typeof Typed !== 'undefined') {
       const strings = this.getTypedStrings();
 
-      new Typed(typedElement, {
+      // Store the typed instance
+      this.typedInstance = new Typed(typedElement, {
+        strings: strings,
+        typeSpeed: 50,
+        backSpeed: 30,
+        backDelay: 2000,
+        loop: true,
+        showCursor: true,
+        cursorChar: '|'
+      });
+    }
+  }
+
+  /**
+   * Reinitialize typed animation with new language strings
+   */
+  reinitializeTypedAnimation() {
+    const typedElement = document.querySelector('[data-typed]');
+
+    // Destroy existing typed instance if it exists
+    if (this.typedInstance && typeof this.typedInstance.destroy === 'function') {
+      this.typedInstance.destroy();
+      this.typedInstance = null;
+    }
+
+    // Create new typed instance with updated strings
+    if (typedElement && typeof Typed !== 'undefined') {
+      const strings = this.getTypedStrings();
+
+      this.typedInstance = new Typed(typedElement, {
         strings: strings,
         typeSpeed: 50,
         backSpeed: 30,
@@ -201,18 +239,32 @@ class App {
    */
   getTypedStrings() {
     if (this.modules.i18n) {
-      return [
-        this.modules.i18n.t('home.hero.subtitle'),
-        '探索浏览器调试的未来',
-        'Explore the Future of Browser Debugging',
-        '革新开发者体验',
-        'Revolutionizing Developer Experience'
-      ];
+      const currentLang = this.modules.i18n.getCurrentLanguage();
+
+      if (currentLang === 'en') {
+        return [
+          'AI-Powered Browser Debugging',
+          'Explore the Future of Browser Debugging',
+          'Revolutionizing Developer Experience',
+          'Next-Generation Debugging Tools',
+          'Automated Testing Made Simple'
+        ];
+      } else {
+        return [
+          'AI赋能的浏览器调试与自动化工具',
+          '探索浏览器调试的未来',
+          '革新开发者体验',
+          '下一代调试工具',
+          '自动化测试如此简单'
+        ];
+      }
     }
+
+    // Fallback strings if i18n is not available
     return [
       '探索浏览器调试的未来',
-      'Explore the Future of Browser Debugging',
-      '革新开发者体验'
+      '革新开发者体验',
+      'AI赋能的浏览器调试工具'
     ];
   }
 
@@ -387,6 +439,9 @@ class App {
   handleLanguageChange(language) {
     document.documentElement.lang = language;
     this.dispatchAppEvent('app:language-changed', { language });
+
+    // Reinitialize typed animation with new language strings
+    this.reinitializeTypedAnimation();
   }
 
   /**
@@ -430,7 +485,7 @@ class App {
 
     // Add sticky header behavior
     if (header) {
-      header.classList.toggle('scrolled', scrollY > 50);
+      header.classList.toggle('scrolled', scrollY > 20);
     }
 
     // Show/hide scroll to top button

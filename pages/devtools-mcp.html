@@ -20,8 +20,8 @@
     <!-- Custom CSS Variables -->
     <link rel="stylesheet" href="../assets/css/variables.css">
 
-    <!-- AOS Animation Library -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!-- ScrollReveal Library -->
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -102,7 +102,7 @@
         <nav class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
                 <!-- Logo and Back to Home -->
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-3 sm:space-x-4 md:space-x-5">
                     <a href="../index.html" class="p-2 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors" aria-label="返回首页">
                         <i data-lucide="arrow-left" class="w-5 h-5 text-text-secondary"></i>
                     </a>
@@ -163,7 +163,7 @@
             </div>
 
             <div class="container mx-auto px-4 relative z-10">
-                <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+                <div class="max-w-4xl mx-auto text-center" data-sr-fade-up>
                     <h1 class="text-5xl md:text-7xl font-bold mb-6">
                         <span class="gradient-text" data-i18n="devToolsMCP.title">Chrome DevTools MCP Server</span>
                     </h1>
@@ -175,18 +175,18 @@
                     </p>
 
                     <!-- Quick Stats -->
-                    <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                    <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto" data-sr-stats>
                         <div class="p-4 surface-elevated rounded-lg">
                             <div class="text-2xl font-bold text-primary-600">MCP</div>
-                            <div class="text-text-secondary text-sm">协议标准</div>
+                            <div class="text-text-secondary text-sm" data-i18n="devToolsMCP.stats.protocolStandard">协议标准</div>
                         </div>
                         <div class="p-4 surface-elevated rounded-lg">
                             <div class="text-2xl font-bold text-primary-600">AI</div>
-                            <div class="text-text-secondary text-sm">智能集成</div>
+                            <div class="text-text-secondary text-sm" data-i18n="devToolsMCP.stats.aiIntegration">智能集成</div>
                         </div>
                         <div class="p-4 surface-elevated rounded-lg">
                             <div class="text-2xl font-bold text-primary-600">API</div>
-                            <div class="text-text-secondary text-sm">开放接口</div>
+                            <div class="text-text-secondary text-sm" data-i18n="devToolsMCP.stats.openAPI">开放接口</div>
                         </div>
                     </div>
                 </div>
@@ -196,18 +196,18 @@
         <!-- Features Section -->
         <section class="py-20 surface-elevated">
             <div class="container mx-auto px-4">
-                <div class="text-center mb-16" data-aos="fade-up">
+                <div class="text-center mb-16" data-sr-fade-up>
                     <h2 class="text-4xl font-bold mb-4 gradient-text" data-i18n="devToolsMCP.features.title">核心特性</h2>
-                    <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+                    <p class="text-lg text-text-secondary max-w-2xl mx-auto" data-i18n="devToolsMCP.footer.description">
                         重新定义浏览器调试体验，让开发更加高效和智能
                     </p>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                     <!-- Protocol Support -->
-                    <div class="p-8 surface-base rounded-xl border border-border-primary tech-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-xl flex items-center justify-center mb-6">
-                            <i data-lucide="link" class="w-8 h-8 text-primary-600 dark:text-primary-400"></i>
+                    <div class="p-8 surface-base rounded-xl border border-border-primary tech-card" data-sr-card-flip>
+                        <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                            <i data-lucide="link" class="w-8 h-8 text-secondary-600 dark:text-secondary-400"></i>
                         </div>
                         <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="devToolsMCP.features.protocol.title">MCP 协议支持</h3>
                         <p class="text-text-secondary mb-4" data-i18n="devToolsMCP.features.protocol.description">
@@ -221,7 +221,7 @@
                     </div>
 
                     <!-- Integration -->
-                    <div class="p-8 surface-base rounded-xl border border-border-primary tech-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-8 surface-base rounded-xl border border-border-primary tech-card" data-sr-card-flip>
                         <div class="w-16 h-16 bg-secondary-100 dark:bg-secondary-900 rounded-xl flex items-center justify-center mb-6">
                             <i data-lucide="puzzle" class="w-8 h-8 text-secondary-600 dark:text-secondary-400"></i>
                         </div>
@@ -237,7 +237,7 @@
                     </div>
 
                     <!-- Extensible -->
-                    <div class="p-8 surface-base rounded-xl border border-border-primary tech-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-8 surface-base rounded-xl border border-border-primary tech-card" data-sr-card-flip>
                         <div class="w-16 h-16 bg-accent-100 dark:bg-accent-900 rounded-xl flex items-center justify-center mb-6">
                             <i data-lucide="git-branch" class="w-8 h-8 text-accent-600 dark:text-accent-400"></i>
                         </div>
@@ -248,21 +248,21 @@
                         <div class="space-y-2">
                             <div class="flex items-center space-x-2 text-sm text-text-secondary">
                                 <i data-lucide="check" class="w-4 h-4 text-success-500"></i>
-                                <span>自定义命令</span>
+                                <span data-i18n="devToolsMCP.extensibleFeatures.customCommands">自定义命令</span>
                             </div>
                             <div class="flex items-center space-x-2 text-sm text-text-secondary">
                                 <i data-lucide="check" class="w-4 h-4 text-success-500"></i>
-                                <span>插件系统</span>
+                                <span data-i18n="devToolsMCP.extensibleFeatures.pluginSystem">插件系统</span>
                             </div>
                             <div class="flex items-center space-x-2 text-sm text-text-secondary">
                                 <i data-lucide="check" class="w-4 h-4 text-success-500"></i>
-                                <span>API 扩展</span>
+                                <span data-i18n="devToolsMCP.extensibleFeatures.apiExtensions">API 扩展</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Real-time Collaboration -->
-                    <div class="p-8 surface-base rounded-xl border border-border-primary tech-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="p-8 surface-base rounded-xl border border-border-primary tech-card" data-sr-card-flip>
                         <div class="w-16 h-16 bg-success-100 dark:bg-success-900 rounded-xl flex items-center justify-center mb-6">
                             <i data-lucide="users" class="w-8 h-8 text-success-600 dark:text-success-400"></i>
                         </div>
@@ -273,15 +273,15 @@
                         <div class="grid grid-cols-3 gap-2 text-center">
                             <div class="p-2 surface-elevated rounded">
                                 <div class="text-lg font-semibold text-primary-600">∞</div>
-                                <div class="text-xs text-text-secondary">协作者</div>
+                                <div class="text-xs text-text-secondary" data-i18n="devToolsMCP.realTimeFeatures.collaborators">协作者</div>
                             </div>
                             <div class="p-2 surface-elevated rounded">
                                 <div class="text-lg font-semibold text-primary-600">0ms</div>
-                                <div class="text-xs text-text-secondary">延迟</div>
+                                <div class="text-xs text-text-secondary" data-i18n="devToolsMCP.realTimeFeatures.latency">延迟</div>
                             </div>
                             <div class="p-2 surface-elevated rounded">
                                 <div class="text-lg font-semibold text-primary-600">SSL</div>
-                                <div class="text-xs text-text-secondary">加密</div>
+                                <div class="text-xs text-text-secondary" data-i18n="devToolsMCP.realTimeFeatures.encryption">加密</div>
                             </div>
                         </div>
                     </div>
@@ -293,26 +293,26 @@
         <section class="py-20 surface-base">
             <div class="container mx-auto px-4">
                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up" data-i18n="devToolsMCP.technical.title">
+                    <h2 class="text-4xl font-bold text-center mb-16 gradient-text" data-sr-fade-up" data-i18n="devToolsMCP.technical.title">
                         技术架构
                     </h2>
 
                     <!-- Architecture Diagram -->
-                    <div class="mb-16" data-aos="fade-up" data-aos-delay="100">
+                    <div class="mb-16" data-sr-narrative>
                         <div class="surface-elevated p-8 rounded-xl border border-border-primary">
-                            <h3 class="text-xl font-semibold mb-6 text-center text-text-primary">系统架构图</h3>
+                            <h3 class="text-xl font-semibold mb-6 text-center text-text-primary" data-i18n="devToolsMCP.technical.architecture">系统架构图</h3>
                             <div class="grid md:grid-cols-2 gap-6">
                                 <!-- Client Side -->
                                 <div class="text-center">
                                     <div class="p-4 surface-base rounded-lg border border-border-primary mb-4">
-                                        <i data-lucide="monitor" class="w-8 h-8 text-primary-600 mx-auto mb-2"></i>
+                                        <i data-lucide="monitor" class="w-8 h-8 text-secondary-600 mx-auto mb-2"></i>
                                         <div class="font-semibold text-text-primary">Chrome DevTools</div>
-                                        <div class="text-sm text-text-secondary">客户端</div>
+                                        <div class="text-sm text-text-secondary" data-i18n="devToolsMCP.technical.architectureDetails.client">客户端</div>
                                     </div>
                                     <div class="text-text-tertiary text-sm">
-                                        <p>• MCP Client Extension</p>
-                                        <p>• WebSocket Connection</p>
-                                        <p>• UI Components</p>
+                                        <p data-i18n="devToolsMCP.technical.architectureDetails.mcpClient">• MCP Client Extension</p>
+                                        <p data-i18n="devToolsMCP.technical.architectureDetails.websocketConnection">• WebSocket Connection</p>
+                                        <p data-i18n="devToolsMCP.technical.architectureDetails.uiComponents">• UI Components</p>
                                     </div>
                                 </div>
 
@@ -321,12 +321,12 @@
                                     <div class="p-4 surface-base rounded-lg border border-border-primary mb-4">
                                         <i data-lucide="server" class="w-8 h-8 text-secondary-600 mx-auto mb-2"></i>
                                         <div class="font-semibold text-text-primary">MCP Server</div>
-                                        <div class="text-sm text-text-secondary">服务端</div>
+                                        <div class="text-sm text-text-secondary" data-i18n="devToolsMCP.technical.architectureDetails.serverSide">服务端</div>
                                     </div>
                                     <div class="text-text-tertiary text-sm">
-                                        <p>• Node.js Runtime</p>
-                                        <p>• MCP Protocol Handler</p>
-                                        <p>• Plugin System</p>
+                                        <p data-i18n="devToolsMCP.technical.architectureDetails.nodejsRuntime">• Node.js Runtime</p>
+                                        <p data-i18n="devToolsMCP.technical.architectureDetails.mcpProtocolHandler">• MCP Protocol Handler</p>
+                                        <p data-i18n="devToolsMCP.technical.architectureDetails.pluginSystem">• Plugin System</p>
                                     </div>
                                 </div>
                             </div>
@@ -343,7 +343,7 @@
                             </div>
 
                             <div class="text-center text-text-secondary text-sm">
-                                <p class="font-semibold mb-2">通信协议</p>
+                                <p class="font-semibold mb-2" data-i18n="devToolsMCP.technical.architectureDetails.commProtocol">通信协议</p>
                                 <div class="flex justify-center gap-4">
                                     <span class="px-3 py-1 surface-base rounded-full text-xs">WebSocket</span>
                                     <span class="px-3 py-1 surface-base rounded-full text-xs">JSON-RPC</span>
@@ -355,63 +355,63 @@
 
                     <!-- Technical Details -->
                     <div class="grid md:grid-cols-2 gap-8">
-                        <div class="p-6 surface-elevated rounded-xl border border-border-primary" data-aos="fade-up" data-aos-delay="200">
-                            <h4 class="font-semibold mb-4 text-text-primary flex items-center">
+                        <div class="p-6 surface-elevated rounded-xl border border-border-primary" data-sr-fade-left>
+                            <h4 class="font-semibold mb-4 text-text-primary flex items-center" data-i18n="devToolsMCP.technical.techStack">
                                 <i data-lucide="layers" class="w-5 h-5 mr-2 text-primary-600"></i>
                                 技术栈
                             </h4>
                             <ul class="space-y-2 text-text-secondary">
                                 <li class="flex items-start">
                                     <i data-lucide="check-circle" class="w-4 h-4 text-success-500 mr-2 mt-0.5 flex-shrink-0"></i>
-                                    <span><strong>前端：</strong>Chrome Extension API, WebSocket Client</span>
+                                    <span data-i18n="devToolsMCP.technical.techStackItems.frontend"><strong>前端：</strong>Chrome Extension API, WebSocket Client</span>
                                 </li>
                                 <li class="flex items-start">
                                     <i data-lucide="check-circle" class="w-4 h-4 text-success-500 mr-2 mt-0.5 flex-shrink-0"></i>
-                                    <span><strong>后端：</strong>Node.js, Express, WebSocket Server</span>
+                                    <span data-i18n="devToolsMCP.technical.techStackItems.backend"><strong>后端：</strong>Node.js, Express, WebSocket Server</span>
                                 </li>
                                 <li class="flex items-start">
                                     <i data-lucide="check-circle" class="w-4 h-4 text-success-500 mr-2 mt-0.5 flex-shrink-0"></i>
-                                    <span><strong>协议：</strong>Model Context Protocol (MCP) 1.0</span>
+                                    <span data-i18n="devToolsMCP.technical.techStackItems.protocolTitle"><strong>协议：</strong>Model Context Protocol (MCP) 1.0</span>
                                 </li>
                                 <li class="flex items-start">
                                     <i data-lucide="check-circle" class="w-4 h-4 text-success-500 mr-2 mt-0.5 flex-shrink-0"></i>
-                                    <span><strong>存储：</strong>SQLite, Redis (可选)</span>
+                                    <span data-i18n="devToolsMCP.technical.techStackItems.storage"><strong>存储：</strong>SQLite, Redis (可选)</span>
                                 </li>
                             </ul>
                         </div>
 
-                        <div class="p-6 surface-elevated rounded-xl border border-border-primary" data-aos="fade-up" data-aos-delay="300">
-                            <h4 class="font-semibold mb-4 text-text-primary flex items-center">
+                        <div class="p-6 surface-elevated rounded-xl border border-border-primary" data-sr-fade-right>
+                            <h4 class="font-semibold mb-4 text-text-primary flex items-center" data-i18n="devToolsMCP.technical.security">
                                 <i data-lucide="shield-check" class="w-5 h-5 mr-2 text-secondary-600"></i>
                                 安全特性
                             </h4>
                             <ul class="space-y-2 text-text-secondary">
                                 <li class="flex items-start">
                                     <i data-lucide="lock" class="w-4 h-4 text-warning-500 mr-2 mt-0.5 flex-shrink-0"></i>
-                                    <span><strong>认证：</strong>OAuth 2.0 / JWT Token</span>
+                                    <span data-i18n="devToolsMCP.technical.securityItems.authentication"><strong>认证：</strong>OAuth 2.0 / JWT Token</span>
                                 </li>
                                 <li class="flex items-start">
                                     <i data-lucide="lock" class="w-4 h-4 text-warning-500 mr-2 mt-0.5 flex-shrink-0"></i>
-                                    <span><strong>加密：</strong>WSS / TLS 1.3</span>
+                                    <span data-i18n="devToolsMCP.technical.securityItems.encryption"><strong>加密：</strong>WSS / TLS 1.3</span>
                                 </li>
                                 <li class="flex items-start">
                                     <i data-lucide="lock" class="w-4 h-4 text-warning-500 mr-2 mt-0.5 flex-shrink-0"></i>
-                                    <span><strong>权限：</strong>Chrome Extension Manifest V3</span>
+                                    <span data-i18n="devToolsMCP.technical.securityItems.permissions"><strong>权限：</strong>Chrome Extension Manifest V3</span>
                                 </li>
                                 <li class="flex items-start">
                                     <i data-lucide="lock" class="w-4 h-4 text-warning-500 mr-2 mt-0.5 flex-shrink-0"></i>
-                                    <span><strong>隔离：</strong>Sandbox Execution Environment</span>
+                                    <span data-i18n="devToolsMCP.technical.securityItems.isolation"><strong>隔离：</strong>Sandbox Execution Environment</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
                     <!-- Code Example -->
-                    <div class="mt-12" data-aos="fade-up" data-aos-delay="400">
-                        <h4 class="font-semibold mb-4 text-text-primary">示例代码</h4>
+                    <div class="mt-12" data-sr-zoom-in>
+                        <h4 class="font-semibold mb-4 text-text-primary" data-i18n="devToolsMCP.technical.codeExample.title">示例代码</h4>
                         <div class="code-block p-6">
                             <div class="flex items-center justify-between mb-4">
-                                <span class="text-text-secondary text-sm">JavaScript - MCP Server 初始化</span>
+                                <span class="text-text-secondary text-sm" data-i18n="devToolsMCP.technical.codeExample.language">JavaScript - MCP Server 初始化</span>
                                 <button
                                     data-copy='const MCPServer = require("@modelcontextprotocol/server");
 
@@ -421,7 +421,7 @@ const server = new MCPServer({
   capabilities: ["tools", "resources"]
 });
 
-// 注册自定义工具
+<span data-i18n="devToolsMCP.technical.codeExample.registerTool">// 注册自定义工具</span>
 server.registerTool("inspect-element", {
   name: "Inspect Element",
   description: "Inspect DOM element with AI assistance",
@@ -432,10 +432,10 @@ server.registerTool("inspect-element", {
     }
   }
 }, async (args) => {
-  // 实现元素检查逻辑
+  <span data-i18n="devToolsMCP.technical.codeExample.implementLogic">// 实现元素检查逻辑</span>
   return {
     success: true,
-    data: { /* 检查结果 */ }
+    data: { <span data-i18n="devToolsMCP.technical.codeExample.checkResult">/* 检查结果 */</span> }
   };
 });
 
@@ -452,7 +452,7 @@ server.start(3000);'
   <span style="color: #059669;">capabilities</span>: [<span style="color: #dc2626;">"tools"</span>, <span style="color: #dc2626;">"resources"</span>]
 });
 
-<span style="color: #6b7280;">// 注册自定义工具</span>
+<span style="color: #6b7280;" data-i18n="devToolsMCP.technical.codeExample.registerTool">// 注册自定义工具</span>
 server.<span style="color: #2563eb;">registerTool</span>(<span style="color: #dc2626;">"inspect-element"</span>, {
   <span style="color: #059669;">name</span>: <span style="color: #dc2626;">"Inspect Element"</span>,
   <span style="color: #059669;">description</span>: <span style="color: #dc2626;">"Inspect DOM element with AI assistance"</span>,
@@ -463,10 +463,10 @@ server.<span style="color: #2563eb;">registerTool</span>(<span style="color: #dc
     }
   }
 }, <span style="color: #7c3aed;">async</span> (args) => {
-  <span style="color: #6b7280;">// 实现元素检查逻辑</span>
+  <span style="color: #6b7280;" data-i18n="devToolsMCP.technical.codeExample.implementLogic">// 实现元素检查逻辑</span>
   <span style="color: #7c3aed;">return</span> {
     <span style="color: #059669;">success</span>: <span style="color: #7c3aed;">true</span>,
-    <span style="color: #059669;">data</span>: { <span style="color: #6b7280;">/* 检查结果 */</span> }
+    <span style="color: #059669;">data</span>: { <span style="color: #6b7280;" data-i18n="devToolsMCP.technical.codeExample.checkResult">/* 检查结果 */</span> }
   };
 });
 
@@ -490,17 +490,17 @@ server.<span style="color: #2563eb;">start</span>(<span style="color: #059669;">
                     </div>
                     <h3 class="text-xl font-bold gradient-text">DevTools MCP</h3>
                 </div>
-                <p class="text-text-secondary mb-6">
+                <p class="text-text-secondary mb-6" data-i18n="devToolsMCP.footer.description">
                     革新浏览器调试体验，让开发更加智能高效
                 </p>
                 <div class="flex justify-center space-x-6">
-                    <a href="../index.html" class="text-text-secondary hover:text-primary-600 transition-colors">返回首页</a>
-                    <a href="../pages/gdg-devfest.html" class="text-text-secondary hover:text-primary-600 transition-colors">GDG DevFest</a>
-                    <a href="../pages/about-me.html" class="text-text-secondary hover:text-primary-600 transition-colors">关于我</a>
+                    <a href="../index.html" class="text-text-secondary hover:text-primary-600 transition-colors" data-i18n="footer.backToHome">返回首页</a>
+                    <a href="../pages/gdg-devfest.html" class="text-text-secondary hover:text-primary-600 transition-colors" data-i18n="navigation.gdgDevFest">GDG DevFest</a>
+                    <a href="../pages/about-me.html" class="text-text-secondary hover:text-primary-600 transition-colors" data-i18n="navigation.about">关于我</a>
                 </div>
                 <div class="mt-8 pt-8 border-t border-border-primary">
-                    <p class="text-text-tertiary text-sm">
-                        © 2024 Chrome DevTools MCP Server Workshop.
+                    <p class="text-text-tertiary text-sm" data-i18n="footer.copyright">
+                        © 2025 Chrome DevTools MCP Server Workshop.
                     </p>
                 </div>
             </div>
@@ -508,10 +508,10 @@ server.<span style="color: #2563eb;">start</span>(<span style="color: #059669;">
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="../assets/js/theme.js"></script>
     <script src="../assets/js/i18n.js"></script>
     <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/scrollreveal-config.js"></script>
 
     <!-- GSAP Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>

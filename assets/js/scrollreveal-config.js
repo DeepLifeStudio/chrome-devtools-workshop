@@ -179,6 +179,9 @@ class ScrollRevealManager {
         // GDG DevFest 页面动画
         this.setupGDGAnimations();
 
+        // DevTools MCP 页面动画
+        this.setupDevToolsMCPAnimations();
+
         // 关于我页面动画
         this.setupAboutAnimations();
 
@@ -390,6 +393,8 @@ class ScrollRevealManager {
         if (window.location.pathname !== '/' &&
             !window.location.pathname.includes('index.html')) return;
 
+        const isMobileViewport = window.matchMedia('(max-width: 767px)').matches;
+
         // 英雄区域的渐进式动画
         this.sr.reveal('.home-hero-title', {
             origin: 'top',
@@ -472,8 +477,8 @@ class ScrollRevealManager {
 
         // 主要功能卡片的动画
         this.sr.reveal('.feature-card-main:nth-child(1)', {
-            origin: 'left',
-            distance: '100px',
+            origin: isMobileViewport ? 'bottom' : 'left',
+            distance: isMobileViewport ? '60px' : '100px',
             duration: 1600,
             delay: 600,
             opacity: 0,
@@ -494,8 +499,8 @@ class ScrollRevealManager {
         });
 
         this.sr.reveal('.feature-card-main:nth-child(3)', {
-            origin: 'right',
-            distance: '100px',
+            origin: isMobileViewport ? 'bottom' : 'right',
+            distance: isMobileViewport ? '60px' : '100px',
             duration: 1600,
             delay: 1200,
             opacity: 0,
@@ -531,8 +536,8 @@ class ScrollRevealManager {
 
         // AI 助手卡片
         this.sr.reveal('.ai-tool-card:nth-child(1)', {
-            origin: 'left',
-            distance: '80px',
+            origin: isMobileViewport ? 'bottom' : 'left',
+            distance: isMobileViewport ? '50px' : '80px',
             duration: 1400,
             delay: 600,
             opacity: 0,
@@ -553,8 +558,8 @@ class ScrollRevealManager {
         });
 
         this.sr.reveal('.ai-tool-card:nth-child(3)', {
-            origin: 'right',
-            distance: '80px',
+            origin: isMobileViewport ? 'bottom' : 'right',
+            distance: isMobileViewport ? '50px' : '80px',
             duration: 1400,
             delay: 1200,
             opacity: 0,
@@ -588,8 +593,8 @@ class ScrollRevealManager {
 
         // 应用场景卡片
         this.sr.reveal('.use-case-item:nth-child(odd)', {
-            origin: 'left',
-            distance: '80px',
+            origin: isMobileViewport ? 'bottom' : 'left',
+            distance: isMobileViewport ? '60px' : '80px',
             duration: 1400,
             opacity: 0,
             scale: 0.9,
@@ -600,14 +605,118 @@ class ScrollRevealManager {
         });
 
         this.sr.reveal('.use-case-item:nth-child(even)', {
-            origin: 'right',
-            distance: '80px',
+            origin: isMobileViewport ? 'bottom' : 'right',
+            distance: isMobileViewport ? '60px' : '80px',
             duration: 1400,
             opacity: 0,
             scale: 0.9,
             easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
             interval: 300,
             delay: 800,
+            reset: false
+        });
+    }
+
+    /**
+     * DevTools MCP 页面的叙事性动画
+     */
+    setupDevToolsMCPAnimations() {
+        if (!window.location.pathname.includes('devtools-mcp')) return;
+
+        // 英雄区域的标题动画
+        this.sr.reveal('[data-barba-namespace="devtools"] .max-w-4xl', {
+            origin: 'top',
+            distance: '80px',
+            duration: 1600,
+            delay: 400,
+            opacity: 0,
+            scale: 0.9,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            reset: false
+        });
+
+        // 统计数据的动画
+        this.sr.reveal('[data-barba-namespace="devtools"] [data-sr-stats] > div', {
+            origin: 'top',
+            distance: '60px',
+            duration: 1000,
+            opacity: 0,
+            scale: 0.8,
+            easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+            interval: 200,
+            delay: 800,
+            reset: false
+        });
+
+        // 核心特性标题动画
+        this.sr.reveal('[data-barba-namespace="devtools"] .text-center.mb-16', {
+            origin: 'top',
+            distance: '60px',
+            duration: 1200,
+            delay: 400,
+            opacity: 0,
+            scale: 0.95,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            reset: false
+        });
+
+        // 技术卡片的翻转动画
+        this.sr.reveal('[data-barba-namespace="devtools"] [data-sr-card-flip]', {
+            origin: 'bottom',
+            distance: '30px',
+            duration: 1000,
+            opacity: 0,
+            scale: 0.95,
+            rotate: { x: 10 },
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            interval: 200,
+            delay: 600,
+            reset: false
+        });
+
+        // 技术架构的叙事性动画
+        this.sr.reveal('[data-barba-namespace="devtools"] [data-sr-narrative]', {
+            origin: 'bottom',
+            distance: '50px',
+            duration: 1500,
+            delay: 800,
+            opacity: 0,
+            scale: 1,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            reset: false
+        });
+
+        // 技术栈详情的左右交替动画
+        this.sr.reveal('[data-barba-namespace="devtools"] [data-sr-fade-left]', {
+            origin: 'left',
+            distance: '80px',
+            duration: 1400,
+            delay: 1000,
+            opacity: 0,
+            scale: 0.9,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            reset: false
+        });
+
+        this.sr.reveal('[data-barba-namespace="devtools"] [data-sr-fade-right]', {
+            origin: 'right',
+            distance: '80px',
+            duration: 1400,
+            delay: 1200,
+            opacity: 0,
+            scale: 0.9,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            reset: false
+        });
+
+        // 代码示例的缩放动画
+        this.sr.reveal('[data-barba-namespace="devtools"] [data-sr-zoom-in]', {
+            distance: 0,
+            scale: 0.8,
+            duration: 1200,
+            delay: 1400,
+            opacity: 0,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
             reset: false
         });
     }

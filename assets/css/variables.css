@@ -254,6 +254,48 @@ input[type="text"], input[type="email"], input[type="password"], textarea {
   outline-offset: 2px;
 }
 
+/* Navigation Header Styles */
+[data-header] {
+  background-color: var(--color-surface-base);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+[data-header].scrolled {
+  background-color: var(--color-surface-elevated);
+  box-shadow: var(--shadow-md);
+  transition: background-color 0.1s ease, box-shadow 0.15s ease;
+}
+
+/* Mobile Menu Styles */
+[data-navigation] {
+  position: relative;
+}
+
+.mobile-menu-open {
+  overflow: hidden;
+}
+
+[data-mobile-menu] {
+  position: absolute;
+  top: calc(100% + 1rem);
+  left: 0;
+  right: 0;
+  width: 100%;
+  transform: translateY(-1rem) scale(0.98);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 10;
+}
+
+[data-mobile-menu].open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
 /* Print Styles */
 @media print {
   .no-print {

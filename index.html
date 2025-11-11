@@ -146,19 +146,32 @@
             box-shadow: var(--shadow-md);
         }
 
+        [data-navigation] {
+            position: relative;
+        }
+
         /* Mobile menu animations */
         [data-mobile-menu] {
+            position: absolute;
+            top: calc(100% + 1rem);
+            left: 0;
+            right: 0;
+            width: 100%;
+            transform: translateY(-1rem) scale(0.98);
+            opacity: 0;
+            pointer-events: none;
             transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 60;
+            background-color: var(--color-surface-base);
+            border: 1px solid var(--color-border-primary);
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-lg);
         }
 
         [data-mobile-menu].open {
-            transform: translateX(0);
+            transform: translateY(0) scale(1);
             opacity: 1;
-        }
-
-        [data-mobile-menu]:not(.open) {
-            transform: translateX(100%);
-            opacity: 0;
+            pointer-events: auto;
         }
 
         /* Scroll to top button */
@@ -415,30 +428,32 @@
     </div>
 
     <!-- Header Navigation -->
-    <header data-header data-navigation class="fixed top-0 left-0 right-0 z-50 surface-base transition-all duration-300" role="banner">
-        <nav class="container mx-auto px-4 py-4" role="navigation" aria-label="Main navigation">
+    <header data-header class="fixed top-0 left-0 right-0 z-50 surface-base transition-colors duration-150" role="banner">
+        <nav class="container mx-auto px-4 py-4" role="navigation" aria-label="Main navigation" data-navigation>
             <div class="flex items-center justify-between">
                 <!-- Logo -->
-                <div class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
+                <div class="flex items-center space-x-2 min-w-0 flex-shrink-0">
+                    <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
                         <i data-lucide="code" class="w-6 h-6 text-white"></i>
                     </div>
-                    <div>
-                        <h1 class="text-xl font-bold gradient-text">DevTools MCP</h1>
-                        <p class="text-xs text-text-tertiary hidden sm:block" data-i18n="home.hero.subtitle">探索浏览器调试的未来</p>
+                    <div class="min-w-0">
+                        <h1 class="text-xl font-bold gradient-text truncate">DevTools MCP</h1>
+                        <p class="text-xs text-text-tertiary hidden sm:block truncate" data-i18n="home.hero.subtitle">探索浏览器调试的未来</p>
                     </div>
                 </div>
 
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium" data-i18n="navigation.home" data-nav-link>首页</a>
-                    <a href="pages/gdg-devfest.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium" data-i18n="navigation.gdgDevFest" data-nav-link>GDG DevFest</a>
-                    <a href="pages/devtools-mcp.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium" data-i18n="navigation.devToolsMCP" data-nav-link>DevTools MCP</a>
-                    <a href="pages/about-me.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium" data-i18n="navigation.about" data-nav-link>关于我</a>
+                <!-- Desktop Navigation (Centered) -->
+                <div class="hidden md:flex items-center justify-center flex-1">
+                    <div class="flex items-center space-x-6 lg:space-x-8">
+                        <a href="#home" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium" data-i18n="navigation.home" data-nav-link>首页</a>
+                        <a href="pages/gdg-devfest.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium" data-i18n="navigation.gdgDevFest" data-nav-link>GDG DevFest</a>
+                        <a href="pages/devtools-mcp.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium" data-i18n="navigation.devToolsMCP" data-nav-link>DevTools MCP</a>
+                        <a href="pages/about-me.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium" data-i18n="navigation.about" data-nav-link>关于我</a>
+                    </div>
                 </div>
 
                 <!-- Controls -->
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-5 flex-shrink-0">
                     <!-- Language Toggle -->
                     <button
                         data-language-switcher
@@ -473,22 +488,19 @@
             </div>
 
             <!-- Mobile Menu -->
-            <div data-mobile-menu class="md:hidden mt-4 py-4 border-t border-border-primary">
-                <div class="flex flex-col space-y-4">
-                    <a href="#home" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium py-2" data-i18n="navigation.home" data-nav-link>首页</a>
-                    <a href="pages/gdg-devfest.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium py-2" data-i18n="navigation.gdgDevFest" data-nav-link>GDG DevFest</a>
-                    <a href="pages/devtools-mcp.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium py-2" data-i18n="navigation.devToolsMCP" data-nav-link>DevTools MCP</a>
-                    <a href="pages/about-me.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium py-2" data-i18n="navigation.about" data-nav-link>关于我</a>
+            <div data-mobile-menu class="md:hidden p-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="#home" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium py-2 px-4 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20" data-i18n="navigation.home" data-nav-link>首页</a>
+                    <a href="pages/gdg-devfest.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium py-2 px-4 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20" data-i18n="navigation.gdgDevFest" data-nav-link>GDG DevFest</a>
+                    <a href="pages/devtools-mcp.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium py-2 px-4 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20" data-i18n="navigation.devToolsMCP" data-nav-link>DevTools MCP</a>
+                    <a href="pages/about-me.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium py-2 px-4 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20" data-i18n="navigation.about" data-nav-link>关于我</a>
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- Barba.js Container -->
-    <div data-barba="wrapper">
-        <div data-barba="container" data-barba-namespace="home">
-            <!-- Main Content -->
-            <main class="min-h-screen pt-20">
+    <!-- Main Content -->
+    <main class="min-h-screen pt-20">
         <!-- Hero Section -->
         <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden" data-parallax="hero-scene">
             <!-- Parallax Background Layers -->
@@ -562,11 +574,11 @@
 
                     <!-- Typed Subtitle -->
                     <div class="home-hero-subtitle text-xl md:text-2xl text-text-secondary mb-8 h-8" data-depth="0.15">
-                        <span data-typed>AI赋能的浏览器调试与自动化工具</span>
+                        <span data-typed data-i18n="home.hero.tagline">AI赋能的浏览器调试与自动化工具</span>
                     </div>
 
                     <!-- Description -->
-                    <p class="home-hero-description text-lg text-text-secondary mb-12 max-w-3xl mx-auto leading-relaxed" data-depth="0.05">
+                    <p class="home-hero-description text-lg text-text-secondary mb-12 max-w-3xl mx-auto leading-relaxed" data-depth="0.05" data-i18n="home.hero.description">
                         Chrome DevTools MCP Server 是一个基于 MCP 协议的服务程序，为 AI 编程助手提供完整的浏览器控制能力。
                         通过它，你的 AI 助手可以进行可靠的自动化、深度调试和性能分析。
                     </p>
@@ -574,23 +586,23 @@
                     <!-- CTA Buttons with parallax effect -->
                     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center" data-depth="0.2">
                         <a
-                            href="https://github.com"
+                            href="https://github.com/ChromeDevTools/chrome-devtools-mcp"
                             target="_blank"
                             class="home-cta-button px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus-visible shadow-lg hover:shadow-xl">
                             <i data-lucide="github" class="w-5 h-5 inline mr-2"></i>
-                            查看源码
+                            <span data-i18n="home.hero.viewSource">查看源码</span>
                         </a>
                         <a
                             href="pages/devtools-mcp.html"
                             class="home-cta-button px-8 py-3 surface-elevated hover:surface-overlay text-text-primary font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus-visible border border-border-primary shadow-md hover:shadow-lg">
                             <i data-lucide="book-open" class="w-5 h-5 inline mr-2"></i>
-                            详细文档
+                            <span data-i18n="home.hero.documentation">详细文档</span>
                         </a>
                         <button
                             onclick="document.getElementById('highlights').scrollIntoView({behavior: 'smooth'})"
-                            class="home-cta-button px-8 py-3 bg-secondary-600 hover:bg-secondary-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus-visible shadow-lg hover:shadow-xl">
+                            class="home-cta-button px-8 py-3 surface-elevated hover:surface-overlay text-text-primary font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus-visible border border-border-primary shadow-md hover:shadow-lg">
                             <i data-lucide="sparkles" class="w-5 h-5 inline mr-2"></i>
-                            核心功能
+                            <span data-i18n="home.hero.coreFeatures">核心功能</span>
                         </button>
                     </div>
                 </div>
@@ -605,20 +617,20 @@
         <!-- Core Features Section -->
         <section id="highlights" class="py-20 surface-elevated">
             <div class="container mx-auto px-4">
-                <h2 class="features-title text-4xl font-bold text-center mb-4 gradient-text">核心功能特性</h2>
-                <p class="text-lg text-text-secondary max-w-2xl mx-auto mb-16">
+                <h2 class="features-title text-4xl font-bold text-center mb-4 gradient-text" data-i18n="home.features.title">核心功能特性</h2>
+                <p class="text-lg text-text-secondary text-center max-w-2xl mx-auto mb-16" data-i18n="home.features.subtitle">
                     为 AI 编程助手提供完整的浏览器控制、调试和自动化能力
                 </p>
 
-                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
                     <!-- Browser Control Card -->
-                    <div class="feature-card-main card" data-card>
-                        <div class="p-8 surface-base rounded-xl shadow-lg card-hover border border-border-primary">
-                            <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-6">
-                                <i data-lucide="mouse-pointer" class="w-8 h-8 text-primary-600 dark:text-primary-400"></i>
+                    <div class="feature-card-main card" data-card tabindex="-1">
+                        <div class="p-8 surface-base rounded-xl shadow-lg card-hover border border-border-primary h-full flex flex-col focus:outline-none">
+                            <div class="w-16 h-16 bg-secondary-100 dark:bg-secondary-900 rounded-lg flex items-center justify-center mb-6">
+                                <i data-lucide="mouse-pointer" class="w-8 h-8 text-secondary-700 dark:text-secondary-400"></i>
                             </div>
-                            <h3 class="text-xl font-semibold mb-3 text-text-primary">浏览器自动化控制</h3>
-                            <p class="text-text-secondary leading-relaxed">
+                            <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="home.features.main.automation.title">浏览器自动化控制</h3>
+                            <p class="text-text-secondary leading-relaxed mt-auto" data-i18n="home.features.main.automation.description">
                                 提供点击、拖拽、填充表单、键盘操作等完整的用户交互能力，使用 Puppeteer 实现可靠的自动化操作
                             </p>
                         </div>
@@ -626,12 +638,12 @@
 
                     <!-- Advanced Debugging Card -->
                     <div class="feature-card-main card" data-card>
-                        <div class="p-8 surface-base rounded-xl shadow-lg card-hover border border-border-primary">
+                        <div class="p-8 surface-base rounded-xl shadow-lg card-hover border border-border-primary h-full flex flex-col focus:outline-none">
                             <div class="w-16 h-16 bg-secondary-100 dark:bg-secondary-900 rounded-lg flex items-center justify-center mb-6">
-                                <i data-lucide="bug" class="w-8 h-8 text-secondary-600 dark:text-secondary-400"></i>
+                                <i data-lucide="bug" class="w-8 h-8 text-secondary-700 dark:text-secondary-400"></i>
                             </div>
-                            <h3 class="text-xl font-semibold mb-3 text-text-primary">高级调试能力</h3>
-                            <p class="text-text-secondary leading-relaxed">
+                            <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="home.features.main.debugging.title">高级调试能力</h3>
+                            <p class="text-text-secondary leading-relaxed mt-auto" data-i18n="home.features.main.debugging.description">
                                 分析网络请求、获取控制台信息、执行 JavaScript、截取屏幕快照，为 AI 提供完整的调试工具箱
                             </p>
                         </div>
@@ -639,12 +651,12 @@
 
                     <!-- Performance Analysis Card -->
                     <div class="feature-card-main card" data-card>
-                        <div class="p-8 surface-base rounded-xl shadow-lg card-hover border border-border-primary">
+                        <div class="p-8 surface-base rounded-xl shadow-lg card-hover border border-border-primary h-full flex flex-col focus:outline-none">
                             <div class="w-16 h-16 bg-accent-100 dark:bg-accent-900 rounded-lg flex items-center justify-center mb-6">
-                                <i data-lucide="trending-up" class="w-8 h-8 text-accent-600 dark:text-accent-400"></i>
+                                <i data-lucide="trending-up" class="w-8 h-8 text-accent-700 dark:text-accent-400"></i>
                             </div>
-                            <h3 class="text-xl font-semibold mb-3 text-text-primary">性能分析洞察</h3>
-                            <p class="text-text-secondary leading-relaxed">
+                            <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="home.features.main.performance.title">性能分析洞察</h3>
+                            <p class="text-text-secondary leading-relaxed mt-auto" data-i18n="home.features.main.performance.description">
                                 记录性能追踪，提取可操作的性能洞察，帮助 AI 识别性能瓶颈并提供优化建议
                             </p>
                         </div>
@@ -655,30 +667,30 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
                     <!-- Navigation Tools -->
                     <div class="feature-card-secondary p-6 surface-base rounded-xl border border-border-primary text-center">
-                        <i data-lucide="navigation" class="w-8 h-8 text-primary-600 mx-auto mb-3"></i>
-                        <h4 class="font-semibold mb-2">导航控制</h4>
-                        <p class="text-sm text-text-secondary">多页面管理、导航、等待功能</p>
+                        <i data-lucide="navigation" class="w-8 h-8 text-secondary-700 dark:text-secondary-400 mx-auto mb-3"></i>
+                        <h4 class="font-semibold mb-2" data-i18n="home.features.secondary.navigation.title">导航控制</h4>
+                        <p class="text-sm text-text-secondary" data-i18n="home.features.secondary.navigation.description">多页面管理、导航、等待功能</p>
                     </div>
 
                     <!-- Network Analysis -->
                     <div class="feature-card-secondary p-6 surface-base rounded-xl border border-border-primary text-center">
-                        <i data-lucide="wifi" class="w-8 h-8 text-secondary-600 mx-auto mb-3"></i>
-                        <h4 class="font-semibold mb-2">网络分析</h4>
-                        <p class="text-sm text-text-secondary">监控网络请求，分析响应数据</p>
+                        <i data-lucide="wifi" class="w-8 h-8 text-secondary-700 dark:text-secondary-400 mx-auto mb-3"></i>
+                        <h4 class="font-semibold mb-2" data-i18n="home.features.secondary.network.title">网络分析</h4>
+                        <p class="text-sm text-text-secondary" data-i18n="home.features.secondary.network.description">监控网络请求，分析响应数据</p>
                     </div>
 
                     <!-- Device Emulation -->
                     <div class="feature-card-secondary p-6 surface-base rounded-xl border border-border-primary text-center">
-                        <i data-lucide="smartphone" class="w-8 h-8 text-accent-600 mx-auto mb-3"></i>
-                        <h4 class="font-semibold mb-2">设备模拟</h4>
-                        <p class="text-sm text-text-secondary">模拟不同设备和屏幕尺寸</p>
+                        <i data-lucide="smartphone" class="w-8 h-8 text-accent-700 dark:text-accent-400 mx-auto mb-3"></i>
+                        <h4 class="font-semibold mb-2" data-i18n="home.features.secondary.device.title">设备模拟</h4>
+                        <p class="text-sm text-text-secondary" data-i18n="home.features.secondary.device.description">模拟不同设备和屏幕尺寸</p>
                     </div>
 
                     <!-- Script Execution -->
                     <div class="feature-card-secondary p-6 surface-base rounded-xl border border-border-primary text-center">
-                        <i data-lucide="code-2" class="w-8 h-8 text-warning-600 mx-auto mb-3"></i>
-                        <h4 class="font-semibold mb-2">脚本执行</h4>
-                        <p class="text-sm text-text-secondary">在页面上下文中执行 JavaScript</p>
+                        <i data-lucide="code-2" class="w-8 h-8 text-accent-700 dark:text-accent-400 mx-auto mb-3"></i>
+                        <h4 class="font-semibold mb-2" data-i18n="home.features.secondary.script.title">脚本执行</h4>
+                        <p class="text-sm text-text-secondary" data-i18n="home.features.secondary.script.description">在页面上下文中执行 JavaScript</p>
                     </div>
                 </div>
             </div>
@@ -687,19 +699,19 @@
         <!-- Supported AI Tools Section -->
         <section id="schedule" class="py-20 surface-base">
             <div class="container mx-auto px-4">
-                <h2 class="ai-tools-title text-4xl font-bold text-center mb-8 gradient-text">支持的 AI 助手</h2>
-                <p class="text-lg text-text-secondary max-w-2xl mx-auto mb-12">
+                <h2 class="ai-tools-title text-4xl font-bold text-center mb-8 gradient-text" data-i18n="home.aiTools.title">支持的 AI 助手</h2>
+                <p class="text-lg text-text-secondary max-w-2xl mx-auto mb-12" data-i18n="home.aiTools.subtitle">
                     Chrome DevTools MCP Server 兼容所有支持 MCP 协议的 AI 编程助手
                 </p>
 
                 <div class="grid md:grid-cols-4 gap-8">
                     <!-- Gemini -->
                     <div class="ai-tool-card p-6 surface-elevated rounded-xl border border-border-primary">
-                        <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="sparkles" class="w-6 h-6 text-primary-600 dark:text-primary-400"></i>
+                        <div class="w-12 h-12 bg-secondary-100 dark:bg-secondary-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="sparkles" class="w-6 h-6 text-secondary-600 dark:text-secondary-400"></i>
                         </div>
                         <h3 class="font-semibold text-text-primary mb-2">Gemini</h3>
-                        <p class="text-text-secondary">Google AI 助手</p>
+                        <p class="text-text-secondary" data-i18n="home.aiTools.gemini">Google AI 助手</p>
                     </div>
 
                     <!-- Claude -->
@@ -708,59 +720,59 @@
                             <i data-lucide="message-square" class="w-6 h-6 text-secondary-600 dark:text-secondary-400"></i>
                         </div>
                         <h3 class="font-semibold text-text-primary mb-2">Claude</h3>
-                        <p class="text-text-secondary">Anthropic AI 助手</p>
+                        <p class="text-text-secondary" data-i18n="home.aiTools.claude">Anthropic AI 助手</p>
                     </div>
 
                     <!-- Cursor -->
                     <div class="ai-tool-card p-6 surface-elevated rounded-xl border border-border-primary">
                         <div class="w-12 h-12 bg-accent-100 dark:bg-accent-900 rounded-lg flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="cursor" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
+                            <i data-lucide="mouse-pointer" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
                         </div>
                         <h3 class="font-semibold text-text-primary mb-2">Cursor</h3>
-                        <p class="text-text-secondary">AI 代码编辑器</p>
+                        <p class="text-text-secondary" data-i18n="home.aiTools.cursor">AI 代码编辑器</p>
                     </div>
 
                     <!-- Copilot -->
                     <div class="ai-tool-card p-6 surface-elevated rounded-xl border border-border-primary">
                         <div class="w-12 h-12 bg-warning-100 dark:bg-warning-900 rounded-lg flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="robot" class="w-6 h-6 text-warning-600 dark:text-warning-400"></i>
+                            <i data-lucide="github" class="w-6 h-6 text-warning-600 dark:text-warning-400"></i>
                         </div>
                         <h3 class="font-semibold text-text-primary mb-2">Copilot</h3>
-                        <p class="text-text-secondary">GitHub AI 助手</p>
+                        <p class="text-text-secondary" data-i18n="home.aiTools.copilot">GitHub AI 助手</p>
                     </div>
                 </div>
 
                 <!-- Use Cases -->
-                <div class="mt-16">
-                    <h3 class="use-cases-title text-2xl font-bold mb-8">典型应用场景</h3>
-                    <div class="grid md:grid-cols-2 gap-6 text-left">
-                        <div class="use-case-item flex items-start space-x-4">
-                            <i data-lucide="code" class="w-6 h-6 text-primary-600 mt-1"></i>
-                            <div>
-                                <h4 class="font-semibold mb-1">AI 生成代码调试</h4>
-                                <p class="text-text-secondary text-sm">AI 可以直接在浏览器中测试和调试它生成的代码</p>
+                <div class="mt-16 max-w-4xl mx-auto">
+                    <h3 class="use-cases-title text-2xl font-bold text-center mb-8" data-i18n="home.useCases.title">典型应用场景</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="use-case-item p-6 surface-elevated rounded-xl border border-border-primary text-center hover:shadow-lg transition-all duration-300">
+                            <div class="w-12 h-12 bg-secondary-100 dark:bg-secondary-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="code" class="w-6 h-6 text-secondary-600 dark:text-secondary-400"></i>
                             </div>
+                            <h4 class="font-semibold mb-2" data-i18n="home.useCases.debugging.title">AI 生成代码调试</h4>
+                            <p class="text-text-secondary text-sm" data-i18n="home.useCases.debugging.description">AI 可以直接在浏览器中测试和调试它生成的代码</p>
                         </div>
-                        <div class="use-case-item flex items-start space-x-4">
-                            <i data-lucide="search" class="w-6 h-6 text-secondary-600 mt-1"></i>
-                            <div>
-                                <h4 class="font-semibold mb-1">自动化测试</h4>
-                                <p class="text-text-secondary text-sm">AI 可以自动执行用户交互测试并分析结果</p>
+                        <div class="use-case-item p-6 surface-elevated rounded-xl border border-border-primary text-center hover:shadow-lg transition-all duration-300">
+                            <div class="w-12 h-12 bg-secondary-100 dark:bg-secondary-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="search" class="w-6 h-6 text-secondary-600 dark:text-secondary-400"></i>
                             </div>
+                            <h4 class="font-semibold mb-2" data-i18n="home.useCases.testing.title">自动化测试</h4>
+                            <p class="text-text-secondary text-sm" data-i18n="home.useCases.testing.description">AI 可以自动执行用户交互测试并分析结果</p>
                         </div>
-                        <div class="use-case-item flex items-start space-x-4">
-                            <i data-lucide="activity" class="w-6 h-6 text-accent-600 mt-1"></i>
-                            <div>
-                                <h4 class="font-semibold mb-1">性能优化</h4>
-                                <p class="text-text-secondary text-sm">AI 分析性能指标并提供具体的优化建议</p>
+                        <div class="use-case-item p-6 surface-elevated rounded-xl border border-border-primary text-center hover:shadow-lg transition-all duration-300">
+                            <div class="w-12 h-12 bg-accent-100 dark:bg-accent-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="activity" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
                             </div>
+                            <h4 class="font-semibold mb-2" data-i18n="home.useCases.optimization.title">性能优化</h4>
+                            <p class="text-text-secondary text-sm" data-i18n="home.useCases.optimization.description">AI 分析性能指标并提供具体的优化建议</p>
                         </div>
-                        <div class="use-case-item flex items-start space-x-4">
-                            <i data-lucide="shield" class="w-6 h-6 text-warning-600 mt-1"></i>
-                            <div>
-                                <h4 class="font-semibold mb-1">安全检测</h4>
-                                <p class="text-text-secondary text-sm">AI 可以自动检测网页中的安全漏洞和问题</p>
+                        <div class="use-case-item p-6 surface-elevated rounded-xl border border-border-primary text-center hover:shadow-lg transition-all duration-300">
+                            <div class="w-12 h-12 bg-accent-100 dark:bg-accent-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="shield" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
                             </div>
+                            <h4 class="font-semibold mb-2" data-i18n="home.useCases.security.title">安全检测</h4>
+                            <p class="text-text-secondary text-sm" data-i18n="home.useCases.security.description">AI 可以自动检测网页中的安全漏洞和问题</p>
                         </div>
                     </div>
                 </div>
@@ -780,18 +792,18 @@
                         </div>
                         <h3 class="text-xl font-bold gradient-text">DevTools MCP</h3>
                     </div>
-                    <p class="text-text-secondary mb-4">
+                    <p class="text-text-secondary mb-4" data-i18n="footer.description">
                         探索浏览器调试的未来，通过 Chrome DevTools MCP Server 革新开发者体验。
                     </p>
                 </div>
 
                 <!-- Quick Links -->
                 <div>
-                    <h4 class="font-semibold text-text-primary mb-4">快速链接</h4>
+                    <h4 class="font-semibold text-text-primary mb-4" data-i18n="footer.quickLinks">快速链接</h4>
                     <div class="grid grid-cols-2 gap-2">
-                        <a href="pages/gdg-devfest.html" class="text-text-secondary hover:text-primary-600 transition-colors">GDG DevFest</a>
-                        <a href="pages/devtools-mcp.html" class="text-text-secondary hover:text-primary-600 transition-colors">DevTools MCP</a>
-                        <a href="pages/about-me.html" class="text-text-secondary hover:text-primary-600 transition-colors">关于我</a>
+                        <a href="pages/gdg-devfest.html" class="text-text-secondary hover:text-primary-600 transition-colors" data-i18n="navigation.gdgDevFest">GDG DevFest</a>
+                        <a href="pages/devtools-mcp.html" class="text-text-secondary hover:text-primary-600 transition-colors" data-i18n="navigation.devToolsMCP">DevTools MCP</a>
+                        <a href="pages/about-me.html" class="text-text-secondary hover:text-primary-600 transition-colors" data-i18n="footer.aboutMe">关于我</a>
                         <a href="https://github.com" class="text-text-secondary hover:text-primary-600 transition-colors">GitHub</a>
                     </div>
                 </div>
@@ -799,44 +811,32 @@
 
             <!-- Bottom Section -->
             <div class="pt-8 border-t border-border-primary flex flex-col md:flex-row justify-between items-center">
-                <p class="text-text-tertiary text-sm mb-4 md:mb-0">
-                    © 2024 Chrome DevTools MCP Server Workshop.
+                <p class="text-text-tertiary text-sm mb-4 md:mb-0" data-i18n="footer.copyright">
+                    © 2025 Chrome DevTools MCP Server Workshop.
                 </p>
                 <div class="flex items-center space-x-4">
                     <!-- Theme Indicator -->
                     <div class="flex items-center space-x-2 text-text-tertiary text-sm">
                         <i data-lucide="sun" class="w-4 h-4"></i>
-                        <span>主题支持</span>
+                        <span data-i18n="footer.themeSupport">主题支持</span>
                     </div>
                     <!-- Language Indicator -->
                     <div class="flex items-center space-x-2 text-text-tertiary text-sm">
                         <i data-lucide="globe" class="w-4 h-4"></i>
-                        <span>多语言</span>
+                        <span data-i18n="footer.multilingual">多语言</span>
                     </div>
                 </div>
             </div>
         </div>
-        </footer>
+    </footer>
 
-        <!-- Scroll to Top Button -->
-        <button data-scroll-to-top aria-label="回到顶部" class="no-print">
-            <i data-lucide="arrow-up" class="w-5 h-5"></i>
-        </button>
-    </main>
-        </div>
-    </div>
+    <!-- Scroll to Top Button -->
+    <button data-scroll-to-top aria-label="回到顶部" class="no-print">
+        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    </button>
 
     <!-- Scripts -->
-    <!-- GSAP for animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-    <!-- Barba.js Library -->
-    <script src="https://unpkg.com/@barba/core@2.9.7/dist/barba.umd.js"></script>
-
-    <!-- Barba.js Transitions -->
-    <script src="./assets/js/barba-transitions.js"></script>
-
-    <!-- Custom Scripts (only loaded for initial page) -->
+    <!-- Custom Scripts -->
     <script src="./assets/js/theme.js"></script>
     <script src="./assets/js/i18n.js"></script>
     <script src="./assets/js/parallax.js"></script>
@@ -847,9 +847,7 @@
     <!-- Initialize Lucide Icons -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
+            lucide.createIcons();
         });
     </script>
 </body>

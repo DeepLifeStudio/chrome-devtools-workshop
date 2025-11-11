@@ -171,7 +171,8 @@ class MicroAnimations {
             // 菜单滑动动画
             anime({
                 targets: mobileMenu,
-                translateX: isOpen ? ['100%', '0%'] : ['0%', '100%'],
+                translateY: isOpen ? ['-16px', '0px'] : ['0px', '-16px'],
+                scaleY: isOpen ? [0.95, 1] : [1, 0.95],
                 opacity: isOpen ? [0, 1] : [1, 0],
                 duration: 300,
                 easing: 'easeOutQuart'

@@ -142,8 +142,8 @@
         <nav class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
                 <!-- Logo and Back to Home -->
-                <div class="flex items-center space-x-4">
-                    <a href="../index.html" class="p-2 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors" aria-label="返回首页">
+                <div class="flex items-center space-x-3 sm:space-x-4 md:space-x-5">
+                    <a href="../index.html" class="p-2 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors" aria-label="返回首页" data-i18n-aria="about.navigation.backHome">
                         <i data-lucide="arrow-left" class="w-5 h-5 text-text-secondary"></i>
                     </a>
                     <div class="flex items-center space-x-2">
@@ -170,7 +170,7 @@
                     <button
                         data-language-switcher
                         class="p-2 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors focus-visible"
-                        aria-label="切换语言">
+                        aria-label="切换语言" data-i18n-aria="common.toggleLanguage">
                         <i data-lucide="globe" class="w-5 h-5 text-text-secondary"></i>
                     </button>
 
@@ -178,7 +178,7 @@
                     <button
                         data-theme-toggle
                         class="p-2 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors focus-visible"
-                        aria-label="切换主题">
+                        aria-label="切换主题" data-i18n-aria="common.toggleTheme">
                         <span data-theme-icon>
                             <svg class="w-5 h-5 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
@@ -190,11 +190,8 @@
         </nav>
     </header>
 
-    <!-- Barba.js Container -->
-    <div data-barba="wrapper">
-        <div data-barba="container" data-barba-namespace="about">
-            <!-- Main Content -->
-            <main class="min-h-screen pt-20">
+    <!-- Main Content -->
+    <main class="min-h-screen pt-20">
         <!-- Hero Section -->
         <section class="relative py-20 overflow-hidden">
             <!-- Background Pattern -->
@@ -209,9 +206,7 @@
                         <div class="profile-section flex-shrink-0">
                             <div class="relative">
                                 <div class="w-48 h-48 lg:w-64 lg:h-64 rounded-full overflow-hidden avatar-glow">
-                                    <div class="w-full h-full bg-gradient-to-br from-primary-400 to-secondary-600 flex items-center justify-center">
-                                        <i data-lucide="user" class="w-24 h-24 lg:w-32 lg:h-32 text-white"></i>
-                                    </div>
+                                    <img src="../assets/images/avat.jpg" alt="Profile Avatar" class="w-full h-full object-cover">
                                 </div>
                                 <!-- Status Indicator -->
                                 <div class="absolute bottom-4 right-4 w-6 h-6 bg-success-500 rounded-full border-4 border-surface-base"></div>
@@ -224,23 +219,23 @@
                                 <span class="gradient-text" data-i18n="about.profile.name">liuzx</span>
                             </h1>
                             <p class="text-xl lg:text-2xl text-text-secondary mb-6" data-i18n="about.profile.role">AI 开发者</p>
-                            <p class="text-lg text-text-secondary mb-8 leading-relaxed" data-i18n="about.introduction">
+                            <p class="text-lg text-text-secondary mb-8 leading-relaxed" data-i18n="about.profile.introduction">
                                 我是一名专注于 AI 产品开发的开发者，热衷于创造能够解决真实用户问题的创新产品。专注于 Agent 产品开发研究，喜欢各种有趣的、能解决用户真实存在的问题的小产品。
                             </p>
 
                             <!-- Quick Stats -->
                             <div class="grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0">
                                 <div class="skill-item text-center">
-                                    <div class="text-2xl font-bold text-primary-600">AI</div>
-                                    <div class="text-sm text-text-secondary">专注领域</div>
+                                    <div class="text-2xl font-bold text-primary-600" data-i18n="about.skills.ai">AI</div>
+                                    <div class="text-sm text-text-secondary" data-i18n="about.skills.focus">专注领域</div>
                                 </div>
                                 <div class="skill-item text-center">
-                                    <div class="text-2xl font-bold text-primary-600">产品</div>
-                                    <div class="text-sm text-text-secondary">创造导向</div>
+                                    <div class="text-2xl font-bold text-primary-600" data-i18n="about.skills.product">产品</div>
+                                    <div class="text-sm text-text-secondary" data-i18n="about.skills.orientation">创造导向</div>
                                 </div>
                                 <div class="skill-item text-center">
-                                    <div class="text-2xl font-bold text-primary-600">创新</div>
-                                    <div class="text-sm text-text-secondary">核心驱动</div>
+                                    <div class="text-2xl font-bold text-primary-600" data-i18n="about.skills.innovation">创新</div>
+                                    <div class="text-sm text-text-secondary" data-i18n="about.skills.drive">核心驱动</div>
                                 </div>
                             </div>
                         </div>
@@ -260,11 +255,11 @@
                     <div class="grid md:grid-cols-2 gap-8">
                         <!-- AI & Machine Learning -->
                         <div class="p-8 surface-base rounded-xl border border-border-primary skill-tag" data-aos="fade-up" data-aos-delay="100">
-                            <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-xl flex items-center justify-center mb-6">
-                                <i data-lucide="brain" class="w-8 h-8 text-primary-600 dark:text-primary-400"></i>
+                            <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                                <i data-lucide="brain" class="w-8 h-8 text-secondary-600 dark:text-secondary-400"></i>
                             </div>
                             <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="about.interests.ai">人工智能与机器学习</h3>
-                            <p class="text-text-secondary mb-4">
+                            <p class="text-text-secondary mb-4" data-i18n="about.interests.aiDescription">
                                 深入研究 AI 技术在各种场景中的应用，特别是大语言模型和智能代理系统的开发。
                             </p>
                             <div class="flex flex-wrap gap-2">
@@ -280,13 +275,13 @@
                                 <i data-lucide="palette" class="w-8 h-8 text-secondary-600 dark:text-secondary-400"></i>
                             </div>
                             <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="about.interests.product">产品设计与用户体验</h3>
-                            <p class="text-text-secondary mb-4">
+                            <p class="text-text-secondary mb-4" data-i18n="about.interests.productDescription">
                                 从用户需求出发，设计简洁高效的产品界面，追求极致的用户体验。
                             </p>
                             <div class="flex flex-wrap gap-2">
                                 <span class="px-3 py-1 bg-secondary-100 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 rounded-full text-sm">UI/UX</span>
                                 <span class="px-3 py-1 bg-secondary-100 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 rounded-full text-sm">Figma</span>
-                                <span class="px-3 py-1 bg-secondary-100 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 rounded-full text-sm">用户研究</span>
+                                <span class="px-3 py-1 bg-secondary-100 dark:bg-secondary-900 text-secondary-700 dark:text-secondary-300 rounded-full text-sm" data-i18n="about.tags.userResearch">用户研究</span>
                             </div>
                         </div>
 
@@ -296,13 +291,13 @@
                                 <i data-lucide="lightbulb" class="w-8 h-8 text-accent-600 dark:text-accent-400"></i>
                             </div>
                             <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="about.interests.innovation">技术创新与探索</h3>
-                            <p class="text-text-secondary mb-4">
+                            <p class="text-text-secondary mb-4" data-i18n="about.interests.innovationDescription">
                                 持续关注前沿技术趋势，探索新技术在实际产品中的应用可能性。
                             </p>
                             <div class="flex flex-wrap gap-2">
                                 <span class="px-3 py-1 bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 rounded-full text-sm">Web3</span>
-                                <span class="px-3 py-1 bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 rounded-full text-sm">边缘计算</span>
-                                <span class="px-3 py-1 bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 rounded-full text-sm">新技术</span>
+                                <span class="px-3 py-1 bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 rounded-full text-sm" data-i18n="about.tags.edgeComputing">边缘计算</span>
+                                <span class="px-3 py-1 bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 rounded-full text-sm" data-i18n="about.tags.newTech">新技术</span>
                             </div>
                         </div>
 
@@ -312,13 +307,13 @@
                                 <i data-lucide="users-2" class="w-8 h-8 text-success-600 dark:text-success-400"></i>
                             </div>
                             <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="about.interests.community">开源社区贡献</h3>
-                            <p class="text-text-secondary mb-4">
+                            <p class="text-text-secondary mb-4" data-i18n="about.interests.communityDescription">
                                 积极参与开源项目，分享技术经验，与开发者社区共同成长。
                             </p>
                             <div class="flex flex-wrap gap-2">
                                 <span class="px-3 py-1 bg-success-100 dark:bg-success-900 text-success-700 dark:text-success-300 rounded-full text-sm">GitHub</span>
-                                <span class="px-3 py-1 bg-success-100 dark:bg-success-900 text-success-700 dark:text-success-300 rounded-full text-sm">技术分享</span>
-                                <span class="px-3 py-1 bg-success-100 dark:bg-success-900 text-success-700 dark:text-success-300 rounded-full text-sm">社区活动</span>
+                                <span class="px-3 py-1 bg-success-100 dark:bg-success-900 text-success-700 dark:text-success-300 rounded-full text-sm" data-i18n="about.tags.techSharing">技术分享</span>
+                                <span class="px-3 py-1 bg-success-100 dark:bg-success-900 text-success-700 dark:text-success-300 rounded-full text-sm" data-i18n="about.tags.communityActivities">社区活动</span>
                             </div>
                         </div>
                     </div>
@@ -334,38 +329,30 @@
                         联系方式
                     </h2>
 
-                    <p class="text-lg text-text-secondary mb-12">
+                    <p class="text-lg text-text-secondary mb-12" data-i18n="about.contact.description">
                         欢迎与我交流技术、产品想法或合作机会。我始终保持开放的态度，期待与有趣的人建立联系。
                     </p>
 
-                    <div class="grid md:grid-cols-3 gap-8">
+                    <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
                         <!-- Email -->
-                        <a href="mailto:xx@gmail.com" class="p-6 surface-elevated rounded-xl border border-border-primary hover:border-primary-300 transition-all duration-300 group">
-                            <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                                <i data-lucide="mail" class="w-8 h-8 text-primary-600 dark:text-primary-400"></i>
+                        <a href="mailto:1024jianghu@gmail.com" class="p-6 surface-elevated rounded-xl border border-border-primary hover:border-primary-300 transition-all duration-300 group">
+                            <div class="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="mail" class="w-8 h-8 text-secondary-600 dark:text-secondary-400"></i>
                             </div>
-                            <h3 class="font-semibold text-text-primary mb-2">邮箱</h3>
-                            <p class="text-text-secondary text-sm" data-i18n="about.contact.email">xx@gmail.com</p>
+                            <h3 class="font-semibold text-text-primary mb-2" data-i18n="about.contact.emailLabel">邮箱</h3>
+                            <p class="text-text-secondary text-sm" data-i18n="about.contact.email">1024jianghu@gmail.com</p>
                         </a>
 
                         <!-- GitHub -->
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="p-6 surface-elevated rounded-xl border border-border-primary hover:border-primary-300 transition-all duration-300 group">
+                        <a href="https://github.com/DeepLifeStudio" target="_blank" rel="noopener noreferrer" class="p-6 surface-elevated rounded-xl border border-border-primary hover:border-primary-300 transition-all duration-300 group">
                             <div class="w-16 h-16 bg-secondary-100 dark:bg-secondary-900 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                                 <i data-lucide="github" class="w-8 h-8 text-secondary-600 dark:text-secondary-400"></i>
                             </div>
-                            <h3 class="font-semibold text-text-primary mb-2">GitHub</h3>
+                            <h3 class="font-semibold text-text-primary mb-2" data-i18n="about.contact.githubLabel">GitHub</h3>
                             <p class="text-text-secondary text-sm" data-i18n="about.contact.github">开源项目</p>
                         </a>
 
-                        <!-- LinkedIn -->
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="p-6 surface-elevated rounded-xl border border-border-primary hover:border-primary-300 transition-all duration-300 group">
-                            <div class="w-16 h-16 bg-accent-100 dark:bg-accent-900 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                                <i data-lucide="linkedin" class="w-8 h-8 text-accent-600 dark:text-accent-400"></i>
-                            </div>
-                            <h3 class="font-semibold text-text-primary mb-2">LinkedIn</h3>
-                            <p class="text-text-secondary text-sm" data-i18n="about.contact.linkedin">职业档案</p>
-                        </a>
-                    </div>
+                                            </div>
 
                     <!-- Call to Action -->
                     <div class="mt-16">
@@ -391,37 +378,24 @@
                     </div>
                     <h3 class="text-xl font-bold gradient-text">liuzx</h3>
                 </div>
-                <p class="text-text-secondary mb-6">
+                <p class="text-text-secondary mb-6" data-i18n="about.footer.description">
                     AI 开发者与产品创造者，专注于构建有趣且实用的产品
                 </p>
                 <div class="flex justify-center space-x-6">
-                    <a href="../index.html" class="text-text-secondary hover:text-primary-600 transition-colors">返回首页</a>
-                    <a href="../pages/gdg-devfest.html" class="text-text-secondary hover:text-primary-600 transition-colors">GDG DevFest</a>
-                    <a href="../pages/devtools-mcp.html" class="text-text-secondary hover:text-primary-600 transition-colors">DevTools MCP</a>
+                    <a href="../index.html" class="text-text-secondary hover:text-primary-600 transition-colors" data-i18n="footer.backToHome">返回首页</a>
+                    <a href="../pages/gdg-devfest.html" class="text-text-secondary hover:text-primary-600 transition-colors" data-i18n="navigation.gdgDevFest">GDG DevFest</a>
+                    <a href="../pages/devtools-mcp.html" class="text-text-secondary hover:text-primary-600 transition-colors" data-i18n="navigation.devToolsMCP">DevTools MCP</a>
                 </div>
                 <div class="mt-8 pt-8 border-t border-border-primary">
-                    <p class="text-text-tertiary text-sm">
-                        © 2024 Chrome DevTools MCP Server Workshop.
+                    <p class="text-text-tertiary text-sm" data-i18n="footer.copyright">
+                        © 2025 Chrome DevTools MCP Server Workshop.
                     </p>
                 </div>
             </div>
         </div>
-        </footer>
-    </main>
-        </div>
-    </div>
+    </footer>
 
     <!-- Scripts -->
-    <!-- GSAP for animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-    <!-- Barba.js Library -->
-    <script src="https://unpkg.com/@barba/core@2.9.7/dist/barba.umd.js"></script>
-
-    <!-- Barba.js Transitions -->
-    <script src="../assets/js/barba-transitions.js"></script>
-
-    <!-- Custom Scripts (only loaded for initial page) -->
     <script src="../assets/js/theme.js"></script>
     <script src="../assets/js/i18n.js"></script>
     <script src="../assets/js/scrollreveal-config.js"></script>
@@ -430,9 +404,7 @@
     <!-- Initialize Lucide Icons -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
+            lucide.createIcons();
         });
     </script>
 </body>
