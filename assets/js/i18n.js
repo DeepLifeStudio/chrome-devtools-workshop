@@ -20,14 +20,18 @@ class I18nManager {
    * @returns {string} Base path
    */
   detectBasePath() {
+    const hostname = window.location.hostname;
     const path = window.location.pathname;
 
-    // Check if we're in a GitHub Pages subdirectory
-    if (path.includes('/chrome-devtools-workshop/')) {
-      return '/chrome-devtools-workshop/';
+    // Check if we're on GitHub Pages with custom domain
+    if (hostname === 'deeplifestudio.github.io') {
+      // GitHub Pages subdirectory pattern
+      if (path.startsWith('/chrome-devtools-workshop/')) {
+        return '/chrome-devtools-workshop/';
+      }
     }
 
-    // Return root path for local development
+    // For local development or root deployment
     return '/';
   }
 
@@ -63,9 +67,34 @@ class I18nManager {
    */
   async loadTranslations(language) {
     try {
-      const response = await fetch(`${this.localesPath}${language}.json`);
-      if (!response.ok) {
-        throw new Error(`Failed to load ${language} translations`);
+      // Try different possible paths for GitHub Pages compatibility
+      const possiblePaths = [
+        `${this.localesPath}${language}.json`,
+        `/chrome-devtools-workshop/locales/${language}.json`,
+        `./locales/${language}.json`,
+        `./assets/locales/${language}.json`,
+        `../locales/${language}.json`
+      ];
+
+      let response = null;
+      let successfulPath = '';
+
+      // Try each path until one works
+      for (const path of possiblePaths) {
+        try {
+          response = await fetch(path);
+          if (response.ok) {
+            successfulPath = path;
+            console.log(`Successfully loaded translations from: ${path}`);
+            break;
+          }
+        } catch (err) {
+          console.log(`Failed to load from ${path}: ${err.message}`);
+        }
+      }
+
+      if (!response || !response.ok) {
+        throw new Error(`Failed to load ${language} translations from all attempted paths`);
       }
 
       const translations = await response.json();
