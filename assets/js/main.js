@@ -612,7 +612,17 @@ class App {
 
     navLinks.forEach(link => {
       const href = link.getAttribute('href');
-      if (href === currentPath) {
+
+      // Handle different path scenarios
+      let isActive = false;
+
+      if (href === '#home' && (currentPath === '/' || currentPath === '/index.html' || currentPath.endsWith('/'))) {
+        isActive = true;
+      } else if (href !== '#home' && currentPath.includes(href.replace('../', ''))) {
+        isActive = true;
+      }
+
+      if (isActive) {
         link.classList.add('active');
       } else {
         link.classList.remove('active');

@@ -296,6 +296,56 @@ input[type="text"], input[type="email"], input[type="password"], textarea {
   pointer-events: auto;
 }
 
+/* Navigation Link Styles */
+.nav-link {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-primary-600) !important;
+}
+
+.nav-link.active {
+  color: var(--color-primary-600) !important;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-primary-600);
+  border-radius: 1px;
+}
+
+.nav-link:not(.active):hover {
+  color: var(--color-primary-600) !important;
+}
+
+.nav-link:not(.active) {
+  color: var(--color-text-primary) !important;
+}
+
+/* Dark theme navigation styles */
+.dark .nav-link:hover {
+  color: var(--color-primary-400) !important;
+}
+
+.dark .nav-link.active {
+  color: var(--color-primary-400) !important;
+}
+
+.dark .nav-link.active::after {
+  background-color: var(--color-primary-400);
+}
+
+.dark .nav-link:not(.active) {
+  color: var(--color-text-primary) !important;
+}
+
 /* Print Styles */
 @media print {
   .no-print {

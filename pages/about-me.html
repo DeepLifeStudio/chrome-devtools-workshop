@@ -190,7 +190,10 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
+    <!-- Barba.js Container -->
+    <div data-barba="wrapper">
+        <div data-barba="container" data-barba-namespace="about">
+            <!-- Main Content -->
     <main class="min-h-screen pt-20">
         <!-- Hero Section -->
         <section class="relative py-20 overflow-hidden">
@@ -248,13 +251,13 @@
         <section class="py-20 surface-elevated">
             <div class="container mx-auto px-4">
                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up" data-i18n="about.interests.title">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16 gradient-text" data-i18n="about.interests.title">
                         我的兴趣
                     </h2>
 
                     <div class="grid md:grid-cols-2 gap-8">
                         <!-- AI & Machine Learning -->
-                        <div class="p-8 surface-base rounded-xl border border-border-primary skill-tag" data-aos="fade-up" data-aos-delay="100">
+                        <div class="p-8 surface-base rounded-xl border border-border-primary skill-tag">
                             <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6">
                                 <i data-lucide="brain" class="w-8 h-8 text-secondary-600 dark:text-secondary-400"></i>
                             </div>
@@ -270,7 +273,7 @@
                         </div>
 
                         <!-- Product Design -->
-                        <div class="p-8 surface-base rounded-xl border border-border-primary skill-tag" data-aos="fade-up" data-aos-delay="200">
+                        <div class="p-8 surface-base rounded-xl border border-border-primary skill-tag">
                             <div class="w-16 h-16 bg-secondary-100 dark:bg-secondary-900 rounded-xl flex items-center justify-center mb-6">
                                 <i data-lucide="palette" class="w-8 h-8 text-secondary-600 dark:text-secondary-400"></i>
                             </div>
@@ -286,7 +289,7 @@
                         </div>
 
                         <!-- Innovation -->
-                        <div class="p-8 surface-base rounded-xl border border-border-primary skill-tag" data-aos="fade-up" data-aos-delay="300">
+                        <div class="p-8 surface-base rounded-xl border border-border-primary skill-tag">
                             <div class="w-16 h-16 bg-accent-100 dark:bg-accent-900 rounded-xl flex items-center justify-center mb-6">
                                 <i data-lucide="lightbulb" class="w-8 h-8 text-accent-600 dark:text-accent-400"></i>
                             </div>
@@ -302,7 +305,7 @@
                         </div>
 
                         <!-- Community -->
-                        <div class="p-8 surface-base rounded-xl border border-border-primary skill-tag" data-aos="fade-up" data-aos-delay="400">
+                        <div class="p-8 surface-base rounded-xl border border-border-primary skill-tag">
                             <div class="w-16 h-16 bg-success-100 dark:bg-success-900 rounded-xl flex items-center justify-center mb-6">
                                 <i data-lucide="users-2" class="w-8 h-8 text-success-600 dark:text-success-400"></i>
                             </div>
@@ -324,7 +327,7 @@
         <!-- Contact Section -->
         <section class="py-20 surface-base">
             <div class="container mx-auto px-4">
-                <div class="max-w-2xl mx-auto text-center" data-aos="fade-up">
+                <div class="max-w-2xl mx-auto text-center">
                     <h2 class="text-3xl lg:text-4xl font-bold mb-8 gradient-text" data-i18n="about.contact.title">
                         联系方式
                     </h2>
@@ -394,6 +397,8 @@
             </div>
         </div>
     </footer>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="../assets/js/theme.js"></script>
@@ -401,11 +406,128 @@
     <script src="../assets/js/scrollreveal-config.js"></script>
     <script src="../assets/js/main.js"></script>
 
-    <!-- Initialize Lucide Icons -->
+    <!-- GSAP Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Barba.js Library -->
+    <script src="https://unpkg.com/@barba/core@2.9.7/dist/barba.umd.js"></script>
+
+    <!-- Barba.js Transitions -->
+    <script src="../assets/js/barba-transitions.js"></script>
+
+    <!-- ScrollReveal Configuration -->
     <script>
+        // About page specific ScrollReveal animations
+        function initializeAboutAnimations() {
+            // Reveal interests title
+            ScrollReveal().reveal('[data-i18n="about.interests.title"]', {
+                duration: 1000,
+                distance: '30px',
+                origin: 'top',
+                opacity: 0,
+                delay: 200,
+                easing: 'ease-out'
+            });
+
+            // Reveal interest cards with staggered delay
+            ScrollReveal().reveal('.skill-tag', {
+                duration: 800,
+                distance: '20px',
+                origin: 'bottom',
+                opacity: 0,
+                interval: 200,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                beforeReveal: function(el) {
+                    el.style.transform = 'translateY(20px)';
+                },
+                afterReveal: function(el) {
+                    el.style.transform = 'translateY(0)';
+                    // Add a subtle bounce effect
+                    el.style.animation = 'subtle-bounce 0.6s ease-out';
+                }
+            });
+
+            // Reveal contact section
+            ScrollReveal().reveal('[data-i18n="about.contact.title"]', {
+                duration: 1000,
+                distance: '30px',
+                origin: 'top',
+                opacity: 0,
+                delay: 300,
+                easing: 'ease-out'
+            });
+
+            // Reveal contact cards
+            ScrollReveal().reveal('.group', {
+                duration: 800,
+                distance: '20px',
+                origin: 'bottom',
+                opacity: 0,
+                interval: 150,
+                easing: 'ease-out',
+                beforeReveal: function(el) {
+                    el.style.transform = 'translateY(20px) scale(0.95)';
+                },
+                afterReveal: function(el) {
+                    el.style.transform = 'translateY(0) scale(1)';
+                }
+            });
+        }
+
+        // Initialize animations when DOM is ready
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+
+            // Check if ScrollReveal is available
+            if (typeof ScrollReveal !== 'undefined') {
+                initializeAboutAnimations();
+            }
         });
     </script>
+
+    <!-- Add subtle bounce animation -->
+    <style>
+        @keyframes subtle-bounce {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Ensure smooth transitions for interest cards */
+        .skill-tag {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Enhanced hover effects for interest cards */
+        .skill-tag:hover .w-16 {
+            transform: scale(1.1) rotate(5deg);
+            transition: transform 0.3s ease;
+        }
+
+        /* Add floating animation to icons */
+        .skill-tag .w-16 {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-3px);
+            }
+        }
+    </style>
 </body>
 </html>

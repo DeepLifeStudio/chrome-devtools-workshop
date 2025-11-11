@@ -267,6 +267,57 @@
             color: var(--color-primary-400);
         }
 
+        /* Navigation link styles */
+        .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-primary-600) !important;
+        }
+
+        .nav-link.active {
+            color: var(--color-primary-600) !important;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--color-primary-600);
+            border-radius: 1px;
+        }
+
+        /* Ensure hover state doesn't persist after mouse leaves */
+        .nav-link:not(.active):hover {
+            color: var(--color-primary-600) !important;
+        }
+
+        .nav-link:not(.active) {
+            color: var(--color-text-primary) !important;
+        }
+
+        /* Dark theme navigation styles */
+        .dark .nav-link:hover {
+            color: var(--color-primary-400) !important;
+        }
+
+        .dark .nav-link.active {
+            color: var(--color-primary-400) !important;
+        }
+
+        .dark .nav-link.active::after {
+            background-color: var(--color-primary-400);
+        }
+
+        .dark .nav-link:not(.active) {
+            color: var(--color-text-primary) !important;
+        }
+
         /* Theme transition animation - controlled by JavaScript now */
 
         /* View Transitions API support with smoother animations */
@@ -499,7 +550,10 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
+    <!-- Barba.js Container -->
+    <div data-barba="wrapper">
+        <div data-barba="container" data-barba-namespace="home">
+            <!-- Main Content -->
     <main class="min-h-screen pt-20">
         <!-- Hero Section -->
         <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden" data-parallax="hero-scene">
@@ -829,6 +883,8 @@
             </div>
         </div>
     </footer>
+        </div>
+    </div>
 
     <!-- Scroll to Top Button -->
     <button data-scroll-to-top aria-label="回到顶部" class="no-print">
@@ -843,6 +899,15 @@
     <script src="./assets/js/anime-animations.js"></script>
     <script src="./assets/js/scrollreveal-config.js"></script>
     <script src="./assets/js/main.js"></script>
+
+    <!-- GSAP Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Barba.js Library -->
+    <script src="https://unpkg.com/@barba/core@2.9.7/dist/barba.umd.js"></script>
+
+    <!-- Barba.js Transitions -->
+    <script src="./assets/js/barba-transitions.js"></script>
 
     <!-- Initialize Lucide Icons -->
     <script>
