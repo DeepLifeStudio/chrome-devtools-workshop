@@ -10,6 +10,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Function to reinitialize ScrollReveal after page transitions
+    function reinitializeScrollReveal() {
+        // Clean up existing ScrollReveal instance
+        if (window.scrollRevealManager) {
+            // Remove any existing reveal effects to prevent conflicts
+            if (window.scrollRevealManager.sr) {
+                // Destroy old instance
+                window.scrollRevealManager.sr.destroy();
+            }
+        }
+
+        // Create new ScrollReveal instance for the new page
+        setTimeout(() => {
+            window.scrollRevealManager = new ScrollRevealManager();
+        }, 100);
+    }
+
+    // Function to reinitialize AOS animations
+    function reinitializeAOS() {
+        if (typeof AOS !== 'undefined') {
+            // Refresh AOS for new content
+            AOS.refresh();
+        }
+    }
+
+    // Function to reinitialize all animations
+    function reinitializeAnimations() {
+        reinitializeScrollReveal();
+        reinitializeAOS();
+
+        // Reinitialize Typed.js if it exists
+        if (window.app && typeof window.app.reinitializeTypedAnimation === 'function') {
+            window.app.reinitializeTypedAnimation();
+        }
+    }
+
     // Check if Barba is available
     if (typeof barba !== 'undefined') {
         // 随机选择切换效果
@@ -97,6 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (window.themeManager) {
                     window.themeManager.updateThemeToggleButtons(window.themeManager.getCurrentTheme());
                 }
+                // 重新初始化所有动画效果
+                reinitializeAnimations();
             },
             transitions: [{
                 name: 'default-transition',
@@ -435,6 +473,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     // Re-initialize theme manager for new page
                     reinitializeThemeManager();
+                },
+                afterEnter() {
+                    // Re-initialize animations after page has fully entered
+                    setTimeout(() => {
+                        reinitializeAnimations();
+                    }, 200);
                 }
             }, {
                 namespace: 'about',
@@ -450,6 +494,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     // Re-initialize theme manager for new page
                     reinitializeThemeManager();
+                },
+                afterEnter() {
+                    // Re-initialize animations after page has fully entered
+                    setTimeout(() => {
+                        reinitializeAnimations();
+                    }, 200);
                 }
             }, {
                 namespace: 'devtools-mcp',
@@ -465,6 +515,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     // Re-initialize theme manager for new page
                     reinitializeThemeManager();
+                },
+                afterEnter() {
+                    // Re-initialize animations after page has fully entered
+                    setTimeout(() => {
+                        reinitializeAnimations();
+                    }, 200);
                 }
             }, {
                 namespace: 'gdg',
@@ -480,6 +536,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     // Re-initialize theme manager for new page
                     reinitializeThemeManager();
+                },
+                afterEnter() {
+                    // Re-initialize animations after page has fully entered
+                    setTimeout(() => {
+                        reinitializeAnimations();
+                    }, 200);
                 }
             }],
             prevent: ({ el }) => {
