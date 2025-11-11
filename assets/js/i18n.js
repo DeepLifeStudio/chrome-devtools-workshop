@@ -9,9 +9,26 @@ class I18nManager {
     this.currentLanguage = this.getSavedLanguage() || this.defaultLanguage;
     this.translations = {};
     this.storageKey = 'chrome-devtools-language';
-    this.localesPath = options.localesPath || '/locales/';
+    // Auto-detect base path for GitHub Pages compatibility
+    this.localesPath = options.localesPath || this.detectBasePath() + 'locales/';
 
     this.init();
+  }
+
+  /**
+   * Detect base path for GitHub Pages compatibility
+   * @returns {string} Base path
+   */
+  detectBasePath() {
+    const path = window.location.pathname;
+
+    // Check if we're in a GitHub Pages subdirectory
+    if (path.includes('/chrome-devtools-workshop/')) {
+      return '/chrome-devtools-workshop/';
+    }
+
+    // Return root path for local development
+    return '/';
   }
 
   /**
