@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chrome DevTools MCP Server Workshop - 探索浏览器调试的未来">
+    <meta name="keywords" content="Chrome DevTools, MCP Server, Google DevFest, Workshop, 浏览器调试">
+    <meta name="author" content="liuzx">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Chrome DevTools MCP Server Workshop">
+    <meta property="og:description" content="探索浏览器调试的未来">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chrome DevTools MCP Server Workshop">
+    <meta name="twitter:description" content="探索浏览器调试的未来">
+    <meta name="twitter:image" content="">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS Variables -->
+    <link rel="stylesheet" href="./assets/css/variables.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <title data-i18n="home.hero.title">Chrome DevTools MCP Server</title>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace']
+                    },
+                    colors: {
+                        primary: {
+                            50: 'var(--color-primary-50)',
+                            100: 'var(--color-primary-100)',
+                            200: 'var(--color-primary-200)',
+                            300: 'var(--color-primary-300)',
+                            400: 'var(--color-primary-400)',
+                            500: 'var(--color-primary-500)',
+                            600: 'var(--color-primary-600)',
+                            700: 'var(--color-primary-700)',
+                            800: 'var(--color-primary-800)',
+                            900: 'var(--color-primary-900)',
+                        },
+                        surface: {
+                            base: 'var(--color-surface-base)',
+                            elevated: 'var(--color-surface-elevated)',
+                            overlay: 'var(--color-surface-overlay)',
+                            inverse: 'var(--color-surface-inverse)',
+                        },
+                        text: {
+                            primary: 'var(--color-text-primary)',
+                            secondary: 'var(--color-text-secondary)',
+                            tertiary: 'var(--color-text-tertiary)',
+                            inverse: 'var(--color-text-inverse)',
+                            onPrimary: 'var(--color-text-on-primary)',
+                            onSecondary: 'var(--color-text-on-secondary)',
+                            disabled: 'var(--color-text-disabled)',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'slide-down': 'slideDown 0.5s ease-out',
+                        'scale-in': 'scaleIn 0.3s ease-out',
+                        'bounce-gentle': 'bounceGentle 2s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.95)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                        bounceGentle: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            background-color: var(--color-surface-base);
+            color: var(--color-text-primary);
+            line-height: var(--line-height-relaxed);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-surface-elevated);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-secondary-400);
+            border-radius: var(--radius-full);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-secondary-500);
+        }
+
+        /* Loading state */
+        [data-loader] {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-surface-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Glass effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .dark .glass {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--color-primary-600), var(--color-secondary-600));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Card hover effects */
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Navigation styles */
+        [data-header] {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        [data-header].scrolled {
+            background-color: var(--color-surface-elevated);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Mobile menu animations */
+        [data-mobile-menu] {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        [data-mobile-menu].open {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        [data-mobile-menu]:not(.open) {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        /* Scroll to top button */
+        [data-scroll-to-top] {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--color-primary-600);
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            z-index: 1030;
+        }
+
+        [data-scroll-to-top].visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        [data-scroll-to-top]:hover {
+            transform: translateY(-2px);
+            background: var(--color-primary-700);
+        }
+
+        /* Theme toggle animation */
+        [data-theme-toggle] {
+            transition: transform 0.3s ease;
+        }
+
+        [data-theme-toggle]:active {
+            transform: scale(0.95);
+        }
+
+        /* Focus styles for accessibility */
+        .focus-visible:focus-visible {
+            outline: 2px solid var(--color-border-focus);
+            outline-offset: 2px;
+        }
+
+        /* Print styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body class="scroll-smooth">
+    <!-- Loading Screen -->
+    <div data-loader class="flex flex-col items-center justify-center space-y-4">
+        <div class="relative">
+            <div class="w-16 h-16 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-8 h-8 bg-primary-600 rounded-full animate-pulse"></div>
+            </div>
+        </div>
+        <p class="text-lg font-medium text-text-secondary" data-i18n="common.loading">Loading...</p>
+    </div>
+
+    <!-- Header Navigation -->
+    <header data-header data-navigation class="fixed top-0 left-0 right-0 z-50 surface-base transition-all duration-300" role="banner">
+        <nav class="container mx-auto px-4 py-4" role="navigation" aria-label="Main navigation">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
+                        <i data-lucide="code" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold gradient-text">DevTools MCP</h1>
+                        <p class="text-xs text-text-tertiary hidden sm:block" data-i18n="home.hero.subtitle">探索浏览器调试的未来</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium" data-i18n="navigation.home" data-nav-link>首页</a>
+                    <a href="pages/gdg-devfest.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium" data-i18n="navigation.gdgDevFest" data-nav-link>GDG DevFest</a>
+                    <a href="pages/devtools-mcp.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium" data-i18n="navigation.devToolsMCP" data-nav-link>DevTools MCP</a>
+                    <a href="pages/about-me.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium" data-i18n="navigation.about" data-nav-link>关于我</a>
+                </div>
+
+                <!-- Controls -->
+                <div class="flex items-center space-x-4">
+                    <!-- Language Toggle -->
+                    <button
+                        data-language-switcher
+                        class="p-2 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors focus-visible"
+                        aria-label="切换语言"
+                        title="切换语言">
+                        <i data-lucide="globe" class="w-5 h-5 text-text-secondary"></i>
+                    </button>
+
+                    <!-- Theme Toggle -->
+                    <button
+                        data-theme-toggle
+                        class="p-2 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors focus-visible"
+                        aria-label="切换主题"
+                        title="切换主题">
+                        <span data-theme-icon>
+                            <svg class="w-5 h-5 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button
+                        data-mobile-menu-toggle
+                        class="md:hidden p-2 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors"
+                        aria-label="打开菜单"
+                        aria-expanded="false">
+                        <i data-lucide="menu" class="w-5 h-5 text-text-secondary"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div data-mobile-menu class="md:hidden mt-4 py-4 border-t border-border-primary">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium py-2" data-i18n="navigation.home" data-nav-link>首页</a>
+                    <a href="pages/gdg-devfest.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium py-2" data-i18n="navigation.gdgDevFest" data-nav-link>GDG DevFest</a>
+                    <a href="pages/devtools-mcp.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium py-2" data-i18n="navigation.devToolsMCP" data-nav-link>DevTools MCP</a>
+                    <a href="pages/about-me.html" class="nav-link text-text-primary hover:text-primary-600 transition-colors font-medium py-2" data-i18n="navigation.about" data-nav-link>关于我</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="min-h-screen pt-20">
+        <!-- Hero Section -->
+        <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%233b82f6" fill-opacity="0.4"%3E%3Ccircle cx="7" cy="7" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+            </div>
+
+            <!-- Hero Content -->
+            <div class="container mx-auto px-4 py-20 relative z-10">
+                <div class="text-center max-w-4xl mx-auto" data-aos="fade-up">
+                    <!-- Animated Title -->
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                        <span class="gradient-text" data-i18n="home.hero.title">Chrome DevTools MCP Server</span>
+                    </h1>
+
+                    <!-- Typed Subtitle -->
+                    <div class="text-xl md:text-2xl text-text-secondary mb-8 h-8">
+                        <span data-typed></span>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-lg text-text-secondary mb-12 max-w-2xl mx-auto leading-relaxed" data-i18n="home.hero.description" data-aos="fade-up" data-aos-delay="200">
+                        加入我们，深入了解 Chrome DevTools MCP Server 如何革新开发者体验，让浏览器调试变得更加智能和高效。
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center" data-aos="fade-up" data-aos-delay="400">
+                        <button
+                            onclick="document.getElementById('highlights').scrollIntoView({behavior: 'smooth'})"
+                            class="px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus-visible">
+                            <span data-i18n="home.hero.cta">立即探索</span>
+                        </button>
+                        <a
+                            href="pages/devtools-mcp.html"
+                            class="px-8 py-3 surface-elevated hover:surface-overlay text-text-primary font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus-visible border border-border-primary">
+                            <span data-i18n="home.hero.learnMore">了解更多</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-gentle">
+                <i data-lucide="chevron-down" class="w-6 h-6 text-text-tertiary"></i>
+            </div>
+        </section>
+
+        <!-- Highlights Section -->
+        <section id="highlights" class="py-20 surface-elevated">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-4xl font-bold mb-4 gradient-text" data-i18n="home.highlights.title">工作坊亮点</h2>
+                    <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+                        深入了解技术原理，体验实际应用，探索开发者工具的无限可能
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Technical Sharing Card -->
+                    <div class="card" data-card data-aos="fade-up" data-aos-delay="100">
+                        <div class="p-8 surface-base rounded-xl shadow-lg card-hover border border-border-primary">
+                            <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-6">
+                                <i data-lucide="book-open" class="w-8 h-8 text-primary-600 dark:text-primary-400"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="home.highlights.technical.title">深度技术分享</h3>
+                            <p class="text-text-secondary leading-relaxed" data-i18n="home.highlights.technical.description">
+                                深入了解 MCP 协议与 Chrome DevTools 的集成原理，掌握核心技术细节
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Live Demo Card -->
+                    <div class="card" data-card data-aos="fade-up" data-aos-delay="200">
+                        <div class="p-8 surface-base rounded-xl shadow-lg card-hover border border-border-primary">
+                            <div class="w-16 h-16 bg-secondary-100 dark:bg-secondary-900 rounded-lg flex items-center justify-center mb-6">
+                                <i data-lucide="monitor" class="w-8 h-8 text-secondary-600 dark:text-secondary-400"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="home.highlights.practical.title">实战演示</h3>
+                            <p class="text-text-secondary leading-relaxed" data-i18n="home.highlights.practical.description">
+                                现场演示 MCP Server 的实际应用场景，真实感受技术魅力
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Experience Card -->
+                    <div class="card" data-card data-aos="fade-up" data-aos-delay="300">
+                        <div class="p-8 surface-base rounded-xl shadow-lg card-hover border border-border-primary">
+                            <div class="w-16 h-16 bg-accent-100 dark:bg-accent-900 rounded-lg flex items-center justify-center mb-6">
+                                <i data-lucide="users" class="w-8 h-8 text-accent-600 dark:text-accent-400"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="home.highlights.interactive.title">互动体验</h3>
+                            <p class="text-text-secondary leading-relaxed" data-i18n="home.highlights.interactive.description">
+                                动手体验最新的开发者工具功能，参与实时互动讨论
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule Section -->
+        <section id="schedule" class="py-20 surface-base">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+                    <h2 class="text-4xl font-bold mb-8 gradient-text" data-i18n="home.schedule.title">活动时间</h2>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Date -->
+                        <div class="p-6 surface-elevated rounded-xl border border-border-primary">
+                            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="calendar" class="w-6 h-6 text-primary-600 dark:text-primary-400"></i>
+                            </div>
+                            <h3 class="font-semibold text-text-primary mb-2">时间</h3>
+                            <p class="text-text-secondary" data-i18n="home.schedule.date">2024年12月</p>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="p-6 surface-elevated rounded-xl border border-border-primary">
+                            <div class="w-12 h-12 bg-secondary-100 dark:bg-secondary-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="map-pin" class="w-6 h-6 text-secondary-600 dark:text-secondary-400"></i>
+                            </div>
+                            <h3 class="font-semibold text-text-primary mb-2">地点</h3>
+                            <p class="text-text-secondary" data-i18n="home.schedule.location">Google Developer Groups DevFest</p>
+                        </div>
+
+                        <!-- Duration -->
+                        <div class="p-6 surface-elevated rounded-xl border border-border-primary">
+                            <div class="w-12 h-12 bg-accent-100 dark:bg-accent-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="clock" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
+                            </div>
+                            <h3 class="font-semibold text-text-primary mb-2">时长</h3>
+                            <p class="text-text-secondary" data-i18n="home.schedule.duration">2小时深度工作坊</p>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="mt-12">
+                        <a
+                            href="pages/gdg-devfest.html"
+                            class="inline-flex items-center px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 focus-visible">
+                            <span data-i18n="common.readMore">了解更多</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="surface-elevated border-t border-border-primary py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <!-- About Section -->
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
+                            <i data-lucide="code" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold gradient-text">DevTools MCP</h3>
+                    </div>
+                    <p class="text-text-secondary mb-4">
+                        探索浏览器调试的未来，通过 Chrome DevTools MCP Server 革新开发者体验。
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold text-text-primary mb-4">快速链接</h4>
+                    <div class="grid grid-cols-2 gap-2">
+                        <a href="pages/gdg-devfest.html" class="text-text-secondary hover:text-primary-600 transition-colors">GDG DevFest</a>
+                        <a href="pages/devtools-mcp.html" class="text-text-secondary hover:text-primary-600 transition-colors">DevTools MCP</a>
+                        <a href="pages/about-me.html" class="text-text-secondary hover:text-primary-600 transition-colors">关于我</a>
+                        <a href="https://github.com" class="text-text-secondary hover:text-primary-600 transition-colors">GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section -->
+            <div class="pt-8 border-t border-border-primary flex flex-col md:flex-row justify-between items-center">
+                <p class="text-text-tertiary text-sm mb-4 md:mb-0">
+                    © 2024 Chrome DevTools MCP Server Workshop.
+                </p>
+                <div class="flex items-center space-x-4">
+                    <!-- Theme Indicator -->
+                    <div class="flex items-center space-x-2 text-text-tertiary text-sm">
+                        <i data-lucide="sun" class="w-4 h-4"></i>
+                        <span>主题支持</span>
+                    </div>
+                    <!-- Language Indicator -->
+                    <div class="flex items-center space-x-2 text-text-tertiary text-sm">
+                        <i data-lucide="globe" class="w-4 h-4"></i>
+                        <span>多语言</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button data-scroll-to-top aria-label="回到顶部" class="no-print">
+        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    </button>
+
+    <!-- Scripts -->
+    <!-- AOS Animation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="./assets/js/theme.js"></script>
+    <script src="./assets/js/i18n.js"></script>
+    <script src="./assets/js/main.js"></script>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

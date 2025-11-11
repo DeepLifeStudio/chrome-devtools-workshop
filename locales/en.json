@@ -1,0 +1,128 @@
+{
+  "navigation": {
+    "home": "Home",
+    "gdgDevFest": "GDG DevFest",
+    "devToolsMCP": "DevTools MCP",
+    "about": "About",
+    "themeToggle": "Toggle Theme",
+    "languageToggle": "Switch Language"
+  },
+  "home": {
+    "hero": {
+      "title": "Chrome DevTools MCP Server",
+      "subtitle": "Explore the Future of Browser Debugging",
+      "description": "Join us to dive deep into how Chrome DevTools MCP Server revolutionizes the developer experience",
+      "cta": "Explore Now",
+      "learnMore": "Learn More"
+    },
+    "highlights": {
+      "title": "Workshop Highlights",
+      "technical": {
+        "title": "Deep Technical Sharing",
+        "description": "Deep dive into MCP protocol and Chrome DevTools integration principles"
+      },
+      "practical": {
+        "title": "Live Demonstrations",
+        "description": "Real-time demonstrations of MCP Server in practical applications"
+      },
+      "interactive": {
+        "title": "Interactive Experience",
+        "description": "Hands-on experience with the latest developer tool features"
+      }
+    },
+    "schedule": {
+      "title": "Event Schedule",
+      "date": "December 2024",
+      "location": "Google Developer Groups DevFest",
+      "duration": "2-hour intensive workshop"
+    }
+  },
+  "gdgDevFest": {
+    "title": "GDG DevFest 2024",
+    "subtitle": "Global Developer Festival",
+    "about": "Google Developer Groups DevFest is a worldwide developer community event that brings together tech enthusiasts and professionals from around the globe.",
+    "highlights": {
+      "title": "Event Highlights",
+      "community": "Strong Tech Community",
+      "learning": "Cutting-edge Technology Learning",
+      "networking": "Industry Networking",
+      "innovation": "Innovative Thinking Collision"
+    }
+  },
+  "devToolsMCP": {
+    "title": "Chrome DevTools MCP Server",
+    "subtitle": "The Next Breakthrough in Browser Debugging",
+    "overview": "MCP (Model Context Protocol) Server brings unprecedented extensibility to Chrome DevTools, making developer tools more intelligent and customizable.",
+    "features": {
+      "title": "Core Features",
+      "protocol": {
+        "title": "MCP Protocol Support",
+        "description": "Fully compliant with Model Context Protocol standards"
+      },
+      "integration": {
+        "title": "Seamless Integration",
+        "description": "Perfect integration with existing Chrome DevTools workflows"
+      },
+      "extensible": {
+        "title": "Highly Extensible",
+        "description": "Support for custom tools and third-party plugin development"
+      },
+      "realTime": {
+        "title": "Real-time Collaboration",
+        "description": "Support for multi-person collaborative debugging and knowledge sharing"
+      }
+    },
+    "technical": {
+      "title": "Technical Architecture",
+      "protocol": "Communication layer based on MCP protocol",
+      "server": "High-performance Node.js server",
+      "bridge": "Chrome DevTools extension bridge",
+      "api": "RESTful API design"
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "AI Developer & Product Creator",
+    "introduction": "I am a developer focused on AI product development, passionate about creating innovative products that solve real user problems.",
+    "profile": {
+      "name": "liuzx",
+      "role": "AI Developer",
+      "focus": "Research on Agent product development",
+      "passion": "Love interesting small products that can solve real user problems"
+    },
+    "interests": {
+      "title": "My Interests",
+      "ai": "Artificial Intelligence & Machine Learning",
+      "product": "Product Design & User Experience",
+      "innovation": "Technology Innovation & Exploration",
+      "community": "Open Source Community Contribution"
+    },
+    "contact": {
+      "title": "Contact Information",
+      "email": "Email: xx@gmail.com",
+      "github": "GitHub Open Source Projects",
+      "linkedin": "LinkedIn Professional Profile"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error occurred",
+    "notFound": "Page not found",
+    "backToHome": "Back to Home",
+    "readMore": "Read More",
+    "viewDetails": "View Details",
+    "close": "Close",
+    "open": "Open",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "next": "Next",
+    "previous": "Previous",
+    "page": "Page",
+    "of": "of",
+    "items": "items"
+  }
+}
