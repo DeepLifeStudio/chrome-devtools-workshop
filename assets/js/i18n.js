@@ -9,30 +9,268 @@ class I18nManager {
     this.currentLanguage = this.getSavedLanguage() || this.defaultLanguage;
     this.translations = {};
     this.storageKey = 'chrome-devtools-language';
-    // Auto-detect base path for GitHub Pages compatibility
-    this.localesPath = options.localesPath || this.detectBasePath() + 'locales/';
+
+    // Inline translations to avoid path issues
+    this.inlineTranslations = {
+      cn: {
+        "navigation": {
+          "home": "首页",
+          "gdgDevFest": "GDG DevFest",
+          "devToolsMCP": "DevTools MCP",
+          "about": "关于我",
+          "themeToggle": "切换主题",
+          "languageToggle": "切换语言"
+        },
+        "home": {
+          "hero": {
+            "title": "Chrome DevTools MCP Server",
+            "subtitle": "探索浏览器调试的未来",
+            "description": "加入我们，深入了解 Chrome DevTools MCP Server 如何革新开发者体验",
+            "cta": "立即探索",
+            "learnMore": "了解更多"
+          },
+          "highlights": {
+            "title": "工作坊亮点",
+            "technical": {
+              "title": "深度技术分享",
+              "description": "深入了解 MCP 协议与 Chrome DevTools 的集成原理"
+            },
+            "practical": {
+              "title": "实战演示",
+              "description": "现场演示 MCP Server 的实际应用场景"
+            },
+            "interactive": {
+              "title": "互动体验",
+              "description": "动手体验最新的开发者工具功能"
+            }
+          },
+          "schedule": {
+            "title": "活动时间",
+            "date": "2024年12月",
+            "location": "Google Developer Groups DevFest",
+            "duration": "2小时深度工作坊"
+          }
+        },
+        "gdgDevFest": {
+          "title": "GDG DevFest 2024",
+          "subtitle": "全球开发者节日",
+          "about": "Google Developer Groups DevFest 是全球性的开发者社区活动，汇聚了来自各地的技术爱好者和专业人士。",
+          "highlights": {
+            "title": "活动亮点",
+            "community": "强大的技术社区",
+            "learning": "前沿技术学习",
+            "networking": "行业人脉拓展",
+            "innovation": "创新思维碰撞"
+          }
+        },
+        "devToolsMCP": {
+          "title": "Chrome DevTools MCP Server",
+          "subtitle": "浏览器调试的下一个突破",
+          "overview": "MCP (Model Context Protocol) Server 为 Chrome DevTools 带来了前所未有的扩展能力，让开发者工具更加智能和可定制。",
+          "features": {
+            "title": "核心特性",
+            "protocol": {
+              "title": "MCP 协议支持",
+              "description": "完全兼容 Model Context Protocol 标准"
+            },
+            "integration": {
+              "title": "无缝集成",
+              "description": "与现有 Chrome DevTools 工作流程完美融合"
+            },
+            "extensible": {
+              "title": "高度可扩展",
+              "description": "支持自定义工具和第三方插件开发"
+            },
+            "realTime": {
+              "title": "实时协作",
+              "description": "支持多人协作调试和知识分享"
+            }
+          },
+          "technical": {
+            "title": "技术架构",
+            "protocol": "基于 MCP 协议的通信层",
+            "server": "高性能 Node.js 服务器",
+            "bridge": "Chrome DevTools 扩展桥接",
+            "api": "RESTful API 设计"
+          }
+        },
+        "about": {
+          "title": "关于我",
+          "subtitle": "AI 开发者与产品创造者",
+          "introduction": "我是一名专注于 AI 产品开发的开发者，热衷于创造能够解决真实用户问题的创新产品。",
+          "profile": {
+            "name": "liuzx",
+            "role": "AI 开发者",
+            "focus": "Agent 产品开发研究",
+            "passion": "喜欢各种有趣的、能解决用户真实存在的问题的小产品"
+          },
+          "interests": {
+            "title": "我的兴趣",
+            "ai": "人工智能与机器学习",
+            "product": "产品设计与用户体验",
+            "innovation": "技术创新与探索",
+            "community": "开源社区贡献"
+          },
+          "contact": {
+            "title": "联系方式",
+            "email": "邮箱：xx@gmail.com",
+            "github": "GitHub 开源项目",
+            "linkedin": "LinkedIn 职业档案"
+          }
+        },
+        "common": {
+          "loading": "加载中...",
+          "error": "出错了",
+          "notFound": "页面未找到",
+          "backToHome": "返回首页",
+          "readMore": "阅读更多",
+          "viewDetails": "查看详情",
+          "close": "关闭",
+          "open": "打开",
+          "save": "保存",
+          "cancel": "取消",
+          "confirm": "确认",
+          "search": "搜索",
+          "filter": "筛选",
+          "sort": "排序",
+          "next": "下一个",
+          "previous": "上一个",
+          "page": "页面",
+          "of": "共",
+          "items": "项"
+        }
+      },
+      en: {
+        "navigation": {
+          "home": "Home",
+          "gdgDevFest": "GDG DevFest",
+          "devToolsMCP": "DevTools MCP",
+          "about": "About",
+          "themeToggle": "Toggle Theme",
+          "languageToggle": "Switch Language"
+        },
+        "home": {
+          "hero": {
+            "title": "Chrome DevTools MCP Server",
+            "subtitle": "Explore the Future of Browser Debugging",
+            "description": "Join us to dive deep into how Chrome DevTools MCP Server revolutionizes the developer experience",
+            "cta": "Explore Now",
+            "learnMore": "Learn More"
+          },
+          "highlights": {
+            "title": "Workshop Highlights",
+            "technical": {
+              "title": "Deep Technical Sharing",
+              "description": "Deep dive into MCP protocol and Chrome DevTools integration principles"
+            },
+            "practical": {
+              "title": "Live Demonstrations",
+              "description": "Real-time demonstrations of MCP Server in practical applications"
+            },
+            "interactive": {
+              "title": "Interactive Experience",
+              "description": "Hands-on experience with the latest developer tool features"
+            }
+          },
+          "schedule": {
+            "title": "Event Schedule",
+            "date": "December 2024",
+            "location": "Google Developer Groups DevFest",
+            "duration": "2-hour intensive workshop"
+          }
+        },
+        "gdgDevFest": {
+          "title": "GDG DevFest 2024",
+          "subtitle": "Global Developer Festival",
+          "about": "Google Developer Groups DevFest is a worldwide developer community event that brings together tech enthusiasts and professionals from around the globe.",
+          "highlights": {
+            "title": "Event Highlights",
+            "community": "Strong Tech Community",
+            "learning": "Cutting-edge Technology Learning",
+            "networking": "Industry Networking",
+            "innovation": "Innovative Thinking Collision"
+          }
+        },
+        "devToolsMCP": {
+          "title": "Chrome DevTools MCP Server",
+          "subtitle": "The Next Breakthrough in Browser Debugging",
+          "overview": "MCP (Model Context Protocol) Server brings unprecedented extensibility to Chrome DevTools, making developer tools more intelligent and customizable.",
+          "features": {
+            "title": "Core Features",
+            "protocol": {
+              "title": "MCP Protocol Support",
+              "description": "Fully compliant with Model Context Protocol standards"
+            },
+            "integration": {
+              "title": "Seamless Integration",
+              "description": "Perfect integration with existing Chrome DevTools workflows"
+            },
+            "extensible": {
+              "title": "Highly Extensible",
+              "description": "Support for custom tools and third-party plugin development"
+            },
+            "realTime": {
+              "title": "Real-time Collaboration",
+              "description": "Support for multi-person collaborative debugging and knowledge sharing"
+            }
+          },
+          "technical": {
+            "title": "Technical Architecture",
+            "protocol": "Communication layer based on MCP protocol",
+            "server": "High-performance Node.js server",
+            "bridge": "Chrome DevTools extension bridge",
+            "api": "RESTful API design"
+          }
+        },
+        "about": {
+          "title": "About Me",
+          "subtitle": "AI Developer & Product Creator",
+          "introduction": "I am a developer focused on AI product development, passionate about creating innovative products that solve real user problems.",
+          "profile": {
+            "name": "liuzx",
+            "role": "AI Developer",
+            "focus": "Research on Agent product development",
+            "passion": "Love interesting small products that can solve real user problems"
+          },
+          "interests": {
+            "title": "My Interests",
+            "ai": "Artificial Intelligence & Machine Learning",
+            "product": "Product Design & User Experience",
+            "innovation": "Technology Innovation & Exploration",
+            "community": "Open Source Community Contribution"
+          },
+          "contact": {
+            "title": "Contact Information",
+            "email": "Email: xx@gmail.com",
+            "github": "GitHub Open Source Projects",
+            "linkedin": "LinkedIn Professional Profile"
+          }
+        },
+        "common": {
+          "loading": "Loading...",
+          "error": "Error occurred",
+          "notFound": "Page not found",
+          "backToHome": "Back to Home",
+          "readMore": "Read More",
+          "viewDetails": "View Details",
+          "close": "Close",
+          "open": "Open",
+          "save": "Save",
+          "cancel": "Cancel",
+          "confirm": "Confirm",
+          "search": "Search",
+          "filter": "Filter",
+          "sort": "Sort",
+          "next": "Next",
+          "previous": "Previous",
+          "page": "Page",
+          "of": "of",
+          "items": "items"
+        }
+      }
+    };
 
     this.init();
-  }
-
-  /**
-   * Detect base path for GitHub Pages compatibility
-   * @returns {string} Base path
-   */
-  detectBasePath() {
-    const hostname = window.location.hostname;
-    const path = window.location.pathname;
-
-    // Check if we're on GitHub Pages with custom domain
-    if (hostname === 'deeplifestudio.github.io') {
-      // GitHub Pages subdirectory pattern
-      if (path.startsWith('/chrome-devtools-workshop/')) {
-        return '/chrome-devtools-workshop/';
-      }
-    }
-
-    // For local development or root deployment
-    return '/';
   }
 
   /**
@@ -61,52 +299,27 @@ class I18nManager {
   }
 
   /**
-   * Load translation file
+   * Load translation (now using inline data)
    * @param {string} language - Language code ('cn' or 'en')
    * @returns {Promise} Translation data
    */
   async loadTranslations(language) {
     try {
-      // Try different possible paths for GitHub Pages compatibility
-      const possiblePaths = [
-        `${this.localesPath}${language}.json`,
-        `/chrome-devtools-workshop/locales/${language}.json`,
-        `./locales/${language}.json`,
-        `./assets/locales/${language}.json`,
-        `../locales/${language}.json`
-      ];
-
-      let response = null;
-      let successfulPath = '';
-
-      // Try each path until one works
-      for (const path of possiblePaths) {
-        try {
-          response = await fetch(path);
-          if (response.ok) {
-            successfulPath = path;
-            console.log(`Successfully loaded translations from: ${path}`);
-            break;
-          }
-        } catch (err) {
-          console.log(`Failed to load from ${path}: ${err.message}`);
-        }
+      // Use inline translations to avoid file loading issues
+      if (this.inlineTranslations[language]) {
+        this.translations[language] = this.inlineTranslations[language];
+        console.log(`Successfully loaded inline ${language} translations`);
+        return this.translations[language];
+      } else {
+        throw new Error(`No inline translations available for language: ${language}`);
       }
-
-      if (!response || !response.ok) {
-        throw new Error(`Failed to load ${language} translations from all attempted paths`);
-      }
-
-      const translations = await response.json();
-      this.translations[language] = translations;
-
-      return translations;
     } catch (error) {
       console.error(`Error loading ${language} translations:`, error);
 
       // Fallback to default language if available
-      if (language !== this.defaultLanguage && this.translations[this.defaultLanguage]) {
-        this.translations[language] = this.translations[this.defaultLanguage];
+      if (language !== this.defaultLanguage && this.inlineTranslations[this.defaultLanguage]) {
+        this.translations[language] = this.inlineTranslations[this.defaultLanguage];
+        console.log(`Using ${this.defaultLanguage} as fallback for ${language}`);
       }
 
       return this.translations[language] || {};
