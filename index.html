@@ -417,9 +417,36 @@
         }
 
         /* Mobile parallax adjustments */
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
             .parallax-layer [data-depth] {
                 transform: translateZ(0) !important;
+                will-change: auto;
+            }
+
+            /* Reduce visual complexity on mobile */
+            .parallax-layer .hidden {
+                display: none !important;
+            }
+        }
+
+        /* Tablet parallax adjustments */
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .parallax-layer [data-depth] {
+                transform: translateZ(0);
+                transition: transform 0.3s ease-out;
+            }
+
+            /* Reduce parallax intensity on tablets */
+            .parallax-layer[data-depth="0.8"],
+            .parallax-layer[data-depth="0.9"] {
+                transform: translateZ(0) !important;
+            }
+        }
+
+        /* High performance devices */
+        @media (min-width: 1025px) and (min-resolution: 2dppx) {
+            .parallax-layer [data-depth] {
+                transform: translateZ(0);
             }
         }
 
@@ -539,21 +566,25 @@
             <!-- Parallax Background Layers -->
             <div class="parallax-layer absolute inset-0">
                 <!-- Floating geometric shapes - Back layer -->
-                <div class="absolute top-10 left-10 w-20 h-20 bg-primary-200 dark:bg-primary-800 rounded-full opacity-30 blur-xl" data-depth="0.2"></div>
-                <div class="absolute top-40 right-20 w-32 h-32 bg-secondary-200 dark:bg-secondary-800 rounded-lg opacity-30 blur-xl transform rotate-45" data-depth="0.15"></div>
-                <div class="absolute bottom-20 left-1/4 w-16 h-16 bg-accent-200 dark:bg-accent-800 rounded-lg opacity-30 blur-xl" data-depth="0.25"></div>
+                <div class="absolute top-10 left-10 w-20 h-20 bg-primary-200 dark:bg-primary-800 rounded-full opacity-30 blur-xl hidden md:block" data-depth="0.2"></div>
+                <div class="absolute top-40 right-20 w-32 h-32 bg-secondary-200 dark:bg-secondary-800 rounded-lg opacity-30 blur-xl transform rotate-45 hidden md:block" data-depth="0.15"></div>
+                <div class="absolute bottom-20 left-1/4 w-16 h-16 bg-accent-200 dark:bg-accent-800 rounded-lg opacity-30 blur-xl hidden md:block" data-depth="0.25"></div>
 
                 <!-- Abstract code elements - Mid layer -->
-                <div class="absolute top-32 left-1/3 text-primary-300 dark:text-primary-700 text-6xl font-mono opacity-20" data-depth="0.4">{}</div>
-                <div class="absolute top-64 right-1/4 text-secondary-300 dark:text-secondary-700 text-5xl font-mono opacity-20" data-depth="0.35">&lt;/&gt;</div>
-                <div class="absolute bottom-40 left-1/2 text-accent-300 dark:text-accent-700 text-4xl font-mono opacity-20" data-depth="0.3">()</div>
+                <div class="absolute top-32 left-1/3 text-primary-300 dark:text-primary-700 text-4xl md:text-6xl font-mono opacity-20 hidden sm:block" data-depth="0.4">{}</div>
+                <div class="absolute top-64 right-1/4 text-secondary-300 dark:text-secondary-700 text-3xl md:text-5xl font-mono opacity-20 hidden sm:block" data-depth="0.35">&lt;/&gt;</div>
+                <div class="absolute bottom-40 left-1/2 text-accent-300 dark:text-accent-700 text-3xl md:text-4xl font-mono opacity-20 hidden sm:block" data-depth="0.3">()</div>
 
                 <!-- Floating particles - Front layer -->
-                <div class="absolute top-1/4 left-1/4 w-4 h-4 bg-primary-400 dark:bg-primary-600 rounded-full opacity-60" data-depth="0.8"></div>
-                <div class="absolute top-1/3 right-1/3 w-3 h-3 bg-secondary-400 dark:bg-secondary-600 rounded-full opacity-60" data-depth="0.9"></div>
-                <div class="absolute bottom-1/3 left-1/2 w-5 h-5 bg-accent-400 dark:bg-accent-600 rounded-full opacity-60" data-depth="0.7"></div>
-                <div class="absolute top-1/2 right-1/4 w-2 h-2 bg-primary-500 rounded-full opacity-40" data-depth="0.6"></div>
-                <div class="absolute bottom-1/2 left-1/3 w-3 h-3 bg-secondary-500 rounded-full opacity-40" data-depth="0.85"></div>
+                <div class="absolute top-1/4 left-1/4 w-3 h-3 md:w-4 md:h-4 bg-primary-400 dark:bg-primary-600 rounded-full opacity-40 md:opacity-60" data-depth="0.8"></div>
+                <div class="absolute top-1/3 right-1/3 w-2 h-2 md:w-3 md:h-3 bg-secondary-400 dark:bg-secondary-600 rounded-full opacity-40 md:opacity-60" data-depth="0.9"></div>
+                <div class="absolute bottom-1/3 left-1/2 w-4 h-4 md:w-5 md:h-5 bg-accent-400 dark:bg-accent-600 rounded-full opacity-40 md:opacity-60" data-depth="0.7"></div>
+                <div class="absolute top-1/2 right-1/4 w-2 h-2 bg-primary-500 rounded-full opacity-30 md:opacity-40" data-depth="0.6"></div>
+                <div class="absolute bottom-1/2 left-1/3 w-2 h-2 md:w-3 md:h-3 bg-secondary-500 rounded-full opacity-30 md:opacity-40" data-depth="0.85"></div>
+
+                <!-- Additional mobile-friendly particles -->
+                <div class="absolute top-1/6 right-1/6 w-2 h-2 bg-primary-300 dark:bg-primary-700 rounded-full opacity-30 block md:hidden" data-depth="0.5"></div>
+                <div class="absolute top-2/3 left-1/6 w-3 h-3 bg-accent-300 dark:bg-accent-700 rounded-full opacity-30 block md:hidden" data-depth="0.6"></div>
 
                 <!-- Background pattern with parallax -->
                 <div class="absolute inset-0 opacity-10" data-depth="0.1">

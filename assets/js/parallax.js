@@ -6,18 +6,10 @@
 class ParallaxManager {
   constructor(options = {}) {
     this.scenes = new Map();
-    this.options = {
-      scalarX: options.scalarX || 10,
-      scalarY: options.scalarY || 10,
-      frictionX: options.frictionX || 0.1,
-      frictionY: options.frictionY || 0.1,
-      originX: options.originX || 0.5,
-      originY: options.originY || 0.5,
-      pointerEvents: options.pointerEvents || false,
-      limitX: options.limitX || false,
-      limitY: options.limitY || false,
-      ...options
-    };
+    this.deviceInfo = this.detectDevice();
+
+    // Adaptive options based on device
+    this.options = this.getAdaptiveOptions(options);
 
     this.init();
   }
@@ -183,15 +175,8 @@ class ParallaxManager {
    * Setup performance optimizations
    */
   setupPerformanceOptimizations() {
-    // Disable parallax on slow connections
-    if (navigator.connection && navigator.connection.effectiveType) {
-      const connectionType = navigator.connection.effectiveType;
-      if (connectionType === 'slow-2g' || connectionType === '2g') {
-        this.disableAllScenes();
-        console.log('Parallax effects disabled due to slow connection');
-        return;
-      }
-    }
+    // Log device information for debugging
+    console.log('Parallax device info:', this.deviceInfo);
 
     // Disable parallax if user prefers reduced motion
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -200,15 +185,96 @@ class ParallaxManager {
       return;
     }
 
-    // Disable on mobile devices (optional, remove if you want mobile support)
-    if (this.isMobileDevice() && !this.options.forceMobile) {
-      this.disableAllScenes();
-      console.log('Parallax effects disabled on mobile device');
-      return;
+    // Strict conditions for mobile devices
+    if (this.deviceInfo.type === 'mobile') {
+      // On mobile, only enable parallax if explicitly forced and device has good performance
+      if (!this.options.forceMobile || !this.deviceInfo.hasGPU || this.deviceInfo.slowConnection) {
+        this.disableAllScenes();
+        console.log('Parallax effects disabled on mobile device (performance or preference)');
+        return;
+      }
     }
+
+    // Setup touch-specific optimizations for mobile/tablet
+    if (this.deviceInfo.hasTouch) {
+      this.setupTouchOptimizations();
+    }
+
+    // Setup responsive behavior
+    this.setupResponsiveBehavior();
 
     // Pause parallax when page is not visible
     this.setupVisibilityHandling();
+  }
+
+  /**
+   * Setup touch-specific optimizations
+   */
+  setupTouchOptimizations() {
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const handleTouchStart = (event) => {
+      if (event.touches.length === 1) {
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+      }
+    };
+
+    const handleTouchMove = (event) => {
+      // Prevent default scroll behavior only if this is a parallax interaction
+      if (event.touches.length === 1) {
+        const touchX = event.touches[0].clientX;
+        const touchY = event.touches[0].clientY;
+        const deltaX = Math.abs(touchX - touchStartX);
+        const deltaY = Math.abs(touchY - touchStartY);
+
+        // Only block default if we detect a drag gesture (not scroll)
+        if (deltaX < 50 && deltaY < 50) {
+          event.preventDefault();
+        }
+      }
+    };
+
+    // Add touch listeners to parallax scenes
+    this.scenes.forEach((scene) => {
+      if (scene.element) {
+        scene.element.addEventListener('touchstart', handleTouchStart, { passive: false });
+        scene.element.addEventListener('touchmove', handleTouchMove, { passive: false });
+      }
+    });
+  }
+
+  /**
+   * Setup responsive behavior for different screen sizes
+   */
+  setupResponsiveBehavior() {
+    let resizeTimeout;
+
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        // Re-detect device on resize
+        this.deviceInfo = this.detectDevice();
+
+        // Update options based on new device info
+        const newOptions = this.getAdaptiveOptions();
+        this.updateOptions(newOptions);
+
+        console.log('Parallax updated for new device:', this.deviceInfo);
+      }, 300); // Debounce resize events
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Handle orientation changes for mobile devices
+    if (this.deviceInfo.hasTouch) {
+      window.addEventListener('orientationchange', () => {
+        setTimeout(() => {
+          handleResize();
+        }, 500); // Wait for orientation change to complete
+      });
+    }
   }
 
   /**
@@ -235,12 +301,161 @@ class ParallaxManager {
   }
 
   /**
-   * Check if device is mobile
+   * Detect device information and capabilities
+   * @returns {Object} Device information
+   */
+  detectDevice() {
+    const userAgent = navigator.userAgent;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Device type detection
+    const isMobile = width <= 768 || /Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+    const isTablet = (width > 768 && width <= 1024) || /iPad|Android(?!.*Mobile)/i.test(userAgent);
+    const isDesktop = width > 1024;
+
+    // Touch capability detection
+    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    // Performance detection
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const slowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g' || connection.effectiveType === '3g');
+
+    // GPU capability detection
+    const hasGPU = this.detectGPUCapability();
+
+    return {
+      type: isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop',
+      width,
+      height,
+      hasTouch,
+      slowConnection,
+      hasGPU,
+      pixelRatio: window.devicePixelRatio || 1,
+      landscape: width > height
+    };
+  }
+
+  /**
+   * Detect GPU capability
+   * @returns {boolean} Whether device has GPU acceleration
+   */
+  detectGPUCapability() {
+    try {
+      // Check for WebGL support
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (gl) {
+        return true;
+      }
+
+      // Check for CSS 3D transforms support
+      const testEl = document.createElement('div');
+      testEl.style.transform = 'translateZ(0)';
+      testEl.style.webkitTransform = 'translateZ(0)';
+      return testEl.style.transform !== '';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /**
+   * Get adaptive options based on device capabilities
+   * @param {Object} userOptions - User provided options
+   * @returns {Object} Adaptive options
+   */
+  getAdaptiveOptions(userOptions = {}) {
+    const defaultOptions = {
+      scalarX: 8,
+      scalarY: 8,
+      frictionX: 0.08,
+      frictionY: 0.08,
+      originX: 0.5,
+      originY: 0.5,
+      pointerEvents: false,
+      limitX: false,
+      limitY: false,
+      forceMobile: false
+    };
+
+    let adaptiveOptions = { ...defaultOptions, ...userOptions };
+
+    // Adaptive based on device type
+    switch (this.deviceInfo.type) {
+      case 'mobile':
+        adaptiveOptions = {
+          ...adaptiveOptions,
+          scalarX: 4,        // Reduced intensity for mobile
+          scalarY: 4,
+          frictionX: 0.12,  // More friction for smoother feel
+          frictionY: 0.12,
+          limitX: 0.3,      // Limit movement range
+          limitY: 0.3,
+          ...userOptions.mobile
+        };
+        break;
+
+      case 'tablet':
+        adaptiveOptions = {
+          ...adaptiveOptions,
+          scalarX: 6,        // Moderate intensity for tablet
+          scalarY: 6,
+          frictionX: 0.1,
+          frictionY: 0.1,
+          limitX: 0.5,
+          limitY: 0.5,
+          ...userOptions.tablet
+        };
+        break;
+
+      case 'desktop':
+        adaptiveOptions = {
+          ...adaptiveOptions,
+          scalarX: 10,       // Full intensity for desktop
+          scalarY: 10,
+          frictionX: 0.08,
+          frictionY: 0.08,
+          ...userOptions.desktop
+        };
+        break;
+    }
+
+    // Adaptive based on connection speed
+    if (this.deviceInfo.slowConnection) {
+      adaptiveOptions.scalarX *= 0.5;
+      adaptiveOptions.scalarY *= 0.5;
+    }
+
+    // Adaptive based on GPU capability
+    if (!this.deviceInfo.hasGPU) {
+      adaptiveOptions.scalarX *= 0.7;
+      adaptiveOptions.scalarY *= 0.7;
+    }
+
+    // Adaptive based on pixel ratio (for high-DPI displays)
+    if (this.deviceInfo.pixelRatio > 2) {
+      adaptiveOptions.scalarX *= 1.2;
+      adaptiveOptions.scalarY *= 1.2;
+    }
+
+    // Adaptive based on orientation
+    if (this.deviceInfo.landscape) {
+      adaptiveOptions.scalarX *= 1.1;
+      adaptiveOptions.scalarY *= 0.9;
+    } else {
+      adaptiveOptions.scalarX *= 0.9;
+      adaptiveOptions.scalarY *= 1.1;
+    }
+
+    return adaptiveOptions;
+  }
+
+  /**
+   * Check if device is mobile (legacy method for compatibility)
    * @returns {boolean} Whether device is mobile
    */
   isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-           (window.innerWidth <= 768 && 'ontouchstart' in window);
+    return this.deviceInfo.type === 'mobile';
   }
 
   /**
