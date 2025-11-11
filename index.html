@@ -269,6 +269,33 @@
             transform: scale(0.95);
         }
 
+        /* Language toggle animation */
+        [data-language-switcher] {
+            transition: all 0.3s ease;
+        }
+
+        [data-language-switcher]:active {
+            transform: scale(0.95);
+        }
+
+        [data-language-switcher].language-active {
+            background-color: var(--color-primary-100);
+            color: var(--color-primary-600);
+        }
+
+        [data-language-switcher].language-active i {
+            color: var(--color-primary-600);
+        }
+
+        .dark [data-language-switcher].language-active {
+            background-color: var(--color-primary-900);
+            color: var(--color-primary-400);
+        }
+
+        .dark [data-language-switcher].language-active i {
+            color: var(--color-primary-400);
+        }
+
         /* Focus styles for accessibility */
         .focus-visible:focus-visible {
             outline: 2px solid var(--color-border-focus);

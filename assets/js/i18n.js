@@ -507,12 +507,11 @@ class I18nManager {
     const switchers = document.querySelectorAll('[data-language-switcher]');
 
     switchers.forEach(switcher => {
-      const targetLanguage = switcher.getAttribute('data-language') ||
-                           (this.currentLanguage === 'cn' ? 'en' : 'cn');
-
       switcher.addEventListener('click', (e) => {
         e.preventDefault();
-        this.switchLanguage(targetLanguage);
+        // Simply toggle between 'cn' and 'en'
+        const newLanguage = this.currentLanguage === 'cn' ? 'en' : 'cn';
+        this.switchLanguage(newLanguage);
       });
 
       // Update initial state
@@ -535,15 +534,25 @@ class I18nManager {
    * @param {Element} switcher - Language switcher element
    */
   updateLanguageSwitcher(switcher) {
-    const targetLanguage = switcher.getAttribute('data-language') ||
-                         (this.currentLanguage === 'cn' ? 'en' : 'cn');
+    const nextLanguage = this.currentLanguage === 'cn' ? 'en' : 'cn';
 
-    // Update ARIA label
-    switcher.setAttribute('aria-label', this.t(`navigation.${targetLanguage === 'cn' ? 'languageToggle' : 'languageToggle'}`));
+    // Update ARIA label with descriptive text
+    const labelText = this.currentLanguage === 'cn' ?
+      'Switch to English' :
+      '切换到中文';
+    switcher.setAttribute('aria-label', labelText);
+    switcher.setAttribute('title', labelText);
 
-    // Update button state
+    // Update button visual state
     switcher.setAttribute('data-current-language', this.currentLanguage);
-    switcher.setAttribute('data-target-language', targetLanguage);
+    switcher.setAttribute('data-next-language', nextLanguage);
+
+    // Add visual feedback classes
+    if (this.currentLanguage === 'en') {
+      switcher.classList.add('language-active');
+    } else {
+      switcher.classList.remove('language-active');
+    }
 
     // Update button text if it has a data-i18n attribute
     const textElement = switcher.querySelector('[data-i18n]');
