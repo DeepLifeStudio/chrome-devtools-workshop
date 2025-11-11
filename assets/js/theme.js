@@ -116,23 +116,37 @@ class ThemeManager {
       // Position overlay at the clicked button
       this.positionOverlayAtButton(overlay);
 
-      // Start animation
+      // Start animation with delay for smoother feel
       requestAnimationFrame(() => {
-        overlay.classList.add('theme-transition-active');
-
-        // Change theme after animation starts
+        // Small delay before starting animation
         setTimeout(() => {
-          this.applyTheme(theme);
-        }, 50);
+          overlay.classList.add('theme-transition-active');
 
-        // Remove overlay after animation completes
-        setTimeout(() => {
-          overlay.classList.remove('theme-transition-active');
+          // Change theme at the midpoint of animation
           setTimeout(() => {
-            document.body.removeChild(overlay);
-            resolve();
-          }, 300);
-        }, 600);
+            // Add subtle scale effect during theme change
+            document.body.style.transition = 'transform 0.3s ease-out';
+            document.body.style.transform = 'scale(1.01)';
+
+            this.applyTheme(theme);
+
+            // Reset scale
+            setTimeout(() => {
+              document.body.style.transform = 'scale(1)';
+            }, 150);
+          }, 400);
+
+          // Fade out overlay
+          setTimeout(() => {
+            overlay.style.transition = 'opacity 0.6s ease-out';
+            overlay.style.opacity = '0';
+
+            setTimeout(() => {
+              document.body.removeChild(overlay);
+              resolve();
+            }, 600);
+          }, 900);
+        }, 50);
       });
     });
   }
@@ -166,17 +180,25 @@ class ThemeManager {
   createTransitionOverlay() {
     const overlay = document.createElement('div');
     overlay.className = 'theme-transition-overlay';
+
+    // Use softer colors with transparency for a gentler look
+    const currentTheme = this.getCurrentTheme();
+    const backgroundColor = currentTheme === 'light'
+      ? 'radial-gradient(circle, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%)'
+      : 'radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.95) 100%)';
+
     overlay.style.cssText = `
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: ${this.getTransitionColor()};
+      background: ${backgroundColor};
       z-index: 9999;
       pointer-events: none;
       clip-path: circle(0% at var(--x, 50%) var(--y, 50%));
-      transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: clip-path 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: clip-path;
     `;
 
     document.body.appendChild(overlay);
@@ -241,10 +263,10 @@ class ThemeManager {
       this.saveTheme(newTheme);
       return newTheme;
     } finally {
-      // Allow new transitions after a delay
+      // Allow new transitions after a longer delay for smoother feel
       setTimeout(() => {
         this.isTransitioning = false;
-      }, 700);
+      }, 1400);
     }
   }
 
