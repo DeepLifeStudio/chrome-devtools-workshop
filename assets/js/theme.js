@@ -7,6 +7,7 @@ class ThemeManager {
   constructor() {
     this.storageKey = 'chrome-devtools-theme';
     this.darkClass = 'dark';
+    this.isTransitioning = false; // Prevent rapid clicking
     this.init();
   }
 
@@ -82,7 +83,65 @@ class ThemeManager {
    * Apply theme to document
    * @param {string} theme - Theme to apply ('light' or 'dark')
    */
-  setTheme(theme) {
+  async setTheme(theme) {
+    // Check if View Transitions API is supported
+    if ('startViewTransition' in document && this.shouldUseViewTransition(theme)) {
+      await this.setThemeWithViewTransition(theme);
+    } else {
+      await this.setThemeWithClipPath(theme);
+    }
+  }
+
+  /**
+   * Set theme using View Transitions API
+   * @param {string} theme - Theme to apply ('light' or 'dark')
+   */
+  async setThemeWithViewTransition(theme) {
+    const transition = document.startViewTransition(() => {
+      this.applyTheme(theme);
+    });
+
+    await transition.finished;
+  }
+
+  /**
+   * Set theme using clip-path animation
+   * @param {string} theme - Theme to apply ('light' or 'dark')
+   */
+  async setThemeWithClipPath(theme) {
+    return new Promise((resolve) => {
+      // Create transition overlay
+      const overlay = this.createTransitionOverlay();
+
+      // Position overlay at the clicked button
+      this.positionOverlayAtButton(overlay);
+
+      // Start animation
+      requestAnimationFrame(() => {
+        overlay.classList.add('theme-transition-active');
+
+        // Change theme after animation starts
+        setTimeout(() => {
+          this.applyTheme(theme);
+        }, 50);
+
+        // Remove overlay after animation completes
+        setTimeout(() => {
+          overlay.classList.remove('theme-transition-active');
+          setTimeout(() => {
+            document.body.removeChild(overlay);
+            resolve();
+          }, 300);
+        }, 600);
+      });
+    });
+  }
+
+  /**
+   * Apply theme without animation
+   * @param {string} theme - Theme to apply ('light' or 'dark')
+   */
+  applyTheme(theme) {
     const html = document.documentElement;
 
     if (theme === 'dark') {
@@ -101,17 +160,92 @@ class ThemeManager {
   }
 
   /**
-   * Toggle between light and dark themes
-   * @returns {string} New theme ('light' or 'dark')
+   * Create transition overlay element
+   * @returns {HTMLElement} Overlay element
    */
-  toggleTheme() {
+  createTransitionOverlay() {
+    const overlay = document.createElement('div');
+    overlay.className = 'theme-transition-overlay';
+    overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: ${this.getTransitionColor()};
+      z-index: 9999;
+      pointer-events: none;
+      clip-path: circle(0% at var(--x, 50%) var(--y, 50%));
+      transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    `;
+
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+
+  /**
+   * Position overlay at the clicked button
+   * @param {HTMLElement} overlay - Overlay element
+   */
+  positionOverlayAtButton(overlay) {
+    const button = document.querySelector('[data-theme-toggle]');
+    if (button) {
+      const rect = button.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+
+      overlay.style.setProperty('--x', `${x}px`);
+      overlay.style.setProperty('--y', `${y}px`);
+      overlay.style.clipPath = `circle(0% at ${x}px ${y}px)`;
+    }
+  }
+
+  /**
+   * Get transition color based on target theme
+   * @returns {string} CSS color value
+   */
+  getTransitionColor() {
+    const currentTheme = this.getCurrentTheme();
+    return currentTheme === 'light'
+      ? 'rgba(15, 23, 42, 0.95)'  // Dark color for light->dark transition
+      : 'rgba(255, 255, 255, 0.95)'; // Light color for dark->light transition
+  }
+
+  /**
+   * Check if View Transitions API should be used
+   * @param {string} theme - Target theme
+   * @returns {boolean} Whether to use View Transitions
+   */
+  shouldUseViewTransition(theme) {
+    // Use View Transitions for modern browsers
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return !prefersReducedMotion;
+  }
+
+  /**
+   * Toggle between light and dark themes
+   * @returns {Promise<string>} New theme ('light' or 'dark')
+   */
+  async toggleTheme() {
+    // Prevent rapid clicking during transition
+    if (this.isTransitioning) {
+      return this.getCurrentTheme();
+    }
+
+    this.isTransitioning = true;
     const currentTheme = this.getCurrentTheme();
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-    this.setTheme(newTheme);
-    this.saveTheme(newTheme);
-
-    return newTheme;
+    try {
+      await this.setTheme(newTheme);
+      this.saveTheme(newTheme);
+      return newTheme;
+    } finally {
+      // Allow new transitions after a delay
+      setTimeout(() => {
+        this.isTransitioning = false;
+      }, 700);
+    }
   }
 
   /**
