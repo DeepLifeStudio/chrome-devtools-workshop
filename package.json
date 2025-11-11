@@ -1,0 +1,16 @@
+{
+  "name": "chrome-devtools-workshop",
+  "version": "1.0.0",
+  "description": "Chrome DevTools MCP Server Workshop Website",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/styles.css --watch",
+    "build": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/styles.css --minify",
+    "serve": "python -m http.server 8000"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32"
+  }
+}

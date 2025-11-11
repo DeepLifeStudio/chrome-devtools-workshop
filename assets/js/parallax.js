@@ -20,7 +20,9 @@ class ParallaxManager {
   init() {
     // Check if Parallax.js is available
     if (typeof Parallax === 'undefined') {
-      console.warn('Parallax.js library not found. Parallax effects will be disabled.');
+      // Silently disable parallax if library not available
+      console.log('Parallax.js library not found. Using CSS-only fallback for effects.');
+      this.setupCSSOnlyFallback();
       return;
     }
 
@@ -35,6 +37,44 @@ class ParallaxManager {
 
     // Performance optimization
     this.setupPerformanceOptimizations();
+  }
+
+  /**
+   * Setup CSS-only fallback for basic parallax-like effects
+   */
+  setupCSSOnlyFallback() {
+    // Add subtle animation to parallax elements using CSS transforms
+    const parallaxElements = document.querySelectorAll('[data-depth]');
+
+    parallaxElements.forEach((element, index) => {
+      const depth = parseFloat(element.getAttribute('data-depth')) || 0.5;
+      const delay = index * 0.1; // Stagger animations
+
+      // Add subtle floating animation
+      element.style.animation = `float-animation ${3 + delay}s ease-in-out infinite`;
+      element.style.animationDelay = `${delay}s`;
+    });
+
+    // Add CSS animation keyframes if not already present
+    if (!document.querySelector('#parallax-fallback-styles')) {
+      const style = document.createElement('style');
+      style.id = 'parallax-fallback-styles';
+      style.textContent = `
+        @keyframes float-animation {
+          0%, 100% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-20px) scale(1.02); }
+        }
+        [data-depth] {
+          will-change: transform;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [data-depth] {
+            animation: none !important;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
   }
 
   /**
