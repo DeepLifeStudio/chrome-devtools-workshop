@@ -296,6 +296,51 @@
             color: var(--color-primary-400);
         }
 
+        /* Theme toggle animation */
+        [data-theme-toggle] {
+            transition: all 0.3s ease;
+        }
+
+        [data-theme-toggle]:active {
+            transform: scale(0.95);
+        }
+
+        [data-theme-toggle].theme-dark-active {
+            background-color: var(--color-secondary-100);
+            color: var(--color-secondary-600);
+        }
+
+        [data-theme-toggle].theme-dark-active i {
+            color: var(--color-secondary-600);
+        }
+
+        .dark [data-theme-toggle].theme-dark-active {
+            background-color: var(--color-secondary-900);
+            color: var(--color-secondary-400);
+        }
+
+        .dark [data-theme-toggle].theme-dark-active i {
+            color: var(--color-secondary-400);
+        }
+
+        [data-theme-toggle].theme-light-active {
+            background-color: var(--color-accent-100);
+            color: var(--color-accent-600);
+        }
+
+        [data-theme-toggle].theme-light-active i {
+            color: var(--color-accent-600);
+        }
+
+        .dark [data-theme-toggle].theme-light-active {
+            background-color: var(--color-accent-900);
+            color: var(--color-accent-400);
+        }
+
+        .dark [data-theme-toggle].theme-light-active i {
+            color: var(--color-accent-400);
+        }
+
         /* Focus styles for accessibility */
         .focus-visible:focus-visible {
             outline: 2px solid var(--color-border-focus);

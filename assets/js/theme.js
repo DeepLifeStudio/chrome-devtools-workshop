@@ -22,6 +22,9 @@ class ThemeManager {
 
     // Add keyboard shortcut (Ctrl/Cmd + Shift + D) for theme toggle
     this.setupKeyboardShortcut();
+
+    // Setup theme toggle buttons
+    this.setupThemeToggleButtons();
   }
 
   /**
@@ -128,12 +131,22 @@ class ThemeManager {
     const toggleButtons = document.querySelectorAll('[data-theme-toggle]');
 
     toggleButtons.forEach(button => {
-      // Update ARIA label
-      const labelKey = theme === 'dark' ? 'switchToLight' : 'switchToDark';
-      button.setAttribute('aria-label', this.getTranslation(labelKey));
+      // Update ARIA label with descriptive text
+      const labelText = theme === 'dark' ? '切换到亮色主题' : '切换到暗色主题';
+      button.setAttribute('aria-label', labelText);
+      button.setAttribute('title', labelText);
 
-      // Update button state
-      button.setAttribute('data-theme', theme);
+      // Update button visual state
+      button.setAttribute('data-current-theme', theme);
+
+      // Add visual feedback classes
+      if (theme === 'dark') {
+        button.classList.add('theme-dark-active');
+        button.classList.remove('theme-light-active');
+      } else {
+        button.classList.add('theme-light-active');
+        button.classList.remove('theme-dark-active');
+      }
 
       // Update icon if present
       const icon = button.querySelector('[data-theme-icon]');
@@ -216,6 +229,25 @@ class ThemeManager {
   resetToSystemTheme() {
     localStorage.removeItem(this.storageKey);
     this.setTheme(this.getSystemTheme());
+  }
+
+  /**
+   * Setup theme toggle buttons with event listeners
+   */
+  setupThemeToggleButtons() {
+    const toggleButtons = document.querySelectorAll('[data-theme-toggle]');
+
+    toggleButtons.forEach(button => {
+      // Add click event listener
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.toggleTheme();
+      });
+
+      // Update initial button state
+      this.updateThemeToggleButtons(this.getCurrentTheme());
+    });
   }
 
   /**
