@@ -9,10 +9,10 @@
 
     <title data-i18n="devToolsMCP.title">Chrome DevTools MCP Server</title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Using system fonts only - no external dependencies -->
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
 
     <!-- Tailwind CSS -->
     <link href="../assets/css/styles.css" rel="stylesheet">
@@ -26,50 +26,7 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Tailwind Config -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'Noto Sans SC', 'system-ui', '-apple-system', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace']
-                    },
-                    colors: {
-                        primary: {
-                            50: 'var(--color-primary-50)',
-                            100: 'var(--color-primary-100)',
-                            200: 'var(--color-primary-200)',
-                            300: 'var(--color-primary-300)',
-                            400: 'var(--color-primary-400)',
-                            500: 'var(--color-primary-500)',
-                            600: 'var(--color-primary-600)',
-                            700: 'var(--color-primary-700)',
-                            800: 'var(--color-primary-800)',
-                            900: 'var(--color-primary-900)',
-                        },
-                        surface: {
-                            base: 'var(--color-surface-base)',
-                            elevated: 'var(--color-surface-elevated)',
-                            overlay: 'var(--color-surface-overlay)',
-                            inverse: 'var(--color-surface-inverse)',
-                        },
-                        text: {
-                            primary: 'var(--color-text-primary)',
-                            secondary: 'var(--color-text-secondary)',
-                            tertiary: 'var(--color-text-tertiary)',
-                            inverse: 'var(--color-text-inverse)',
-                            onPrimary: 'var(--color-text-on-primary)',
-                            onSecondary: 'var(--color-text-on-secondary)',
-                            disabled: 'var(--color-text-disabled)',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
+    
     <!-- Custom Styles -->
     <style>
         body {
@@ -193,8 +150,11 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
-    <main class="min-h-screen pt-20">
+    <!-- Barba.js Container -->
+    <div data-barba="wrapper">
+        <div data-barba="container" data-barba-namespace="devtools">
+            <!-- Main Content -->
+            <main class="min-h-screen pt-20">
         <!-- Hero Section -->
         <section class="relative py-20 overflow-hidden">
             <!-- Background Pattern -->
@@ -516,7 +476,9 @@ server.<span style="color: #2563eb;">start</span>(<span style="color: #059669;">
                 </div>
             </div>
         </section>
-    </main>
+            </main>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="surface-elevated border-t border-border-primary py-12">
@@ -551,10 +513,21 @@ server.<span style="color: #2563eb;">start</span>(<span style="color: #059669;">
     <script src="../assets/js/i18n.js"></script>
     <script src="../assets/js/main.js"></script>
 
+    <!-- GSAP Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Barba.js Library -->
+    <script src="https://unpkg.com/@barba/core@2.9.7/dist/barba.umd.js"></script>
+
+    <!-- Barba.js Transitions -->
+    <script src="../assets/js/barba-transitions.js"></script>
+
     <!-- Initialize Lucide Icons -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
         });
     </script>
 </body>

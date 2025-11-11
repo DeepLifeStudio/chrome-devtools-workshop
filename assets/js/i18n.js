@@ -547,7 +547,8 @@ class I18nManager {
     switcher.setAttribute('data-current-language', this.currentLanguage);
     switcher.setAttribute('data-next-language', nextLanguage);
 
-    // Add visual feedback classes
+    // Always toggle the active state class based on current language
+    // Remove active state for Chinese, add for English
     if (this.currentLanguage === 'en') {
       switcher.classList.add('language-active');
     } else {

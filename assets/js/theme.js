@@ -110,43 +110,44 @@ class ThemeManager {
    */
   async setThemeWithClipPath(theme) {
     return new Promise((resolve) => {
-      // Create transition overlay
-      const overlay = this.createTransitionOverlay();
+      // Don't apply theme yet - create overlay first
+      const oldTheme = this.getCurrentTheme();
+      const targetThemeColor = theme === 'light' ? '#ffffff' : '#0f172a';
+
+      // Create a pseudo-element approach using multiple layers
+      const overlay = document.createElement('div');
+      overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: ${targetThemeColor};
+        z-index: 9999;
+        pointer-events: none;
+        clip-path: circle(0% at 0% 0%);
+        will-change: clip-path;
+      `;
+
+      document.body.appendChild(overlay);
 
       // Position overlay at the clicked button
       this.positionOverlayAtButton(overlay);
 
-      // Start animation with delay for smoother feel
+      // Start animation immediately
       requestAnimationFrame(() => {
-        // Small delay before starting animation
+        // Apply theme change instantly after overlay is positioned
+        this.applyTheme(theme);
+
+        // Animate overlay from 0% to 150% to progressively reveal new theme
+        overlay.style.transition = 'clip-path 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        overlay.style.clipPath = 'circle(150% at 0% 0%)';
+
+        // Clean up overlay after animation completes
         setTimeout(() => {
-          overlay.classList.add('theme-transition-active');
-
-          // Change theme at the midpoint of animation
-          setTimeout(() => {
-            // Add subtle scale effect during theme change
-            document.body.style.transition = 'transform 0.3s ease-out';
-            document.body.style.transform = 'scale(1.01)';
-
-            this.applyTheme(theme);
-
-            // Reset scale
-            setTimeout(() => {
-              document.body.style.transform = 'scale(1)';
-            }, 150);
-          }, 400);
-
-          // Fade out overlay
-          setTimeout(() => {
-            overlay.style.transition = 'opacity 0.6s ease-out';
-            overlay.style.opacity = '0';
-
-            setTimeout(() => {
-              document.body.removeChild(overlay);
-              resolve();
-            }, 600);
-          }, 900);
-        }, 50);
+          document.body.removeChild(overlay);
+          resolve();
+        }, 900);
       });
     });
   }
@@ -175,17 +176,12 @@ class ThemeManager {
 
   /**
    * Create transition overlay element
+   * @param {string} color - Background color for the overlay
    * @returns {HTMLElement} Overlay element
    */
-  createTransitionOverlay() {
+  createTransitionOverlay(color) {
     const overlay = document.createElement('div');
     overlay.className = 'theme-transition-overlay';
-
-    // Use softer colors with transparency for a gentler look
-    const currentTheme = this.getCurrentTheme();
-    const backgroundColor = currentTheme === 'light'
-      ? 'radial-gradient(circle, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%)'
-      : 'radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.95) 100%)';
 
     overlay.style.cssText = `
       position: fixed;
@@ -193,12 +189,13 @@ class ThemeManager {
       left: 0;
       width: 100%;
       height: 100%;
-      background: ${backgroundColor};
+      background-color: ${color};
       z-index: 9999;
       pointer-events: none;
-      clip-path: circle(0% at var(--x, 50%) var(--y, 50%));
-      transition: clip-path 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: clip-path;
+      mix-blend-mode: difference;
+      opacity: 0;
+      clip-path: circle(0% at 0% 0%);
+      will-change: clip-path, opacity;
     `;
 
     document.body.appendChild(overlay);
@@ -210,16 +207,10 @@ class ThemeManager {
    * @param {HTMLElement} overlay - Overlay element
    */
   positionOverlayAtButton(overlay) {
-    const button = document.querySelector('[data-theme-toggle]');
-    if (button) {
-      const rect = button.getBoundingClientRect();
-      const x = rect.left + rect.width / 2;
-      const y = rect.top + rect.height / 2;
-
-      overlay.style.setProperty('--x', `${x}px`);
-      overlay.style.setProperty('--y', `${y}px`);
-      overlay.style.clipPath = `circle(0% at ${x}px ${y}px)`;
-    }
+    // Position at top-left corner for diagonal transition
+    overlay.style.setProperty('--x', '0px');
+    overlay.style.setProperty('--y', '0px');
+    overlay.style.clipPath = 'circle(0% at 0% 0%)';
   }
 
   /**
@@ -263,10 +254,10 @@ class ThemeManager {
       this.saveTheme(newTheme);
       return newTheme;
     } finally {
-      // Allow new transitions after a longer delay for smoother feel
+      // Allow new transitions after shorter delay
       setTimeout(() => {
         this.isTransitioning = false;
-      }, 1400);
+      }, 500);
     }
   }
 

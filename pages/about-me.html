@@ -9,10 +9,10 @@
 
     <title data-i18n="about.title">关于我</title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Using system fonts only - no external dependencies -->
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>">
 
     <!-- Tailwind CSS -->
     <link href="../assets/css/styles.css" rel="stylesheet">
@@ -20,56 +20,13 @@
     <!-- Custom CSS Variables -->
     <link rel="stylesheet" href="../assets/css/variables.css">
 
-    <!-- AOS Animation Library -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!-- ScrollReveal Library -->
+    <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Tailwind Config -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'Noto Sans SC', 'system-ui', '-apple-system', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace']
-                    },
-                    colors: {
-                        primary: {
-                            50: 'var(--color-primary-50)',
-                            100: 'var(--color-primary-100)',
-                            200: 'var(--color-primary-200)',
-                            300: 'var(--color-primary-300)',
-                            400: 'var(--color-primary-400)',
-                            500: 'var(--color-primary-500)',
-                            600: 'var(--color-primary-600)',
-                            700: 'var(--color-primary-700)',
-                            800: 'var(--color-primary-800)',
-                            900: 'var(--color-primary-900)',
-                        },
-                        surface: {
-                            base: 'var(--color-surface-base)',
-                            elevated: 'var(--color-surface-elevated)',
-                            overlay: 'var(--color-surface-overlay)',
-                            inverse: 'var(--color-surface-inverse)',
-                        },
-                        text: {
-                            primary: 'var(--color-text-primary)',
-                            secondary: 'var(--color-text-secondary)',
-                            tertiary: 'var(--color-text-tertiary)',
-                            inverse: 'var(--color-text-inverse)',
-                            onPrimary: 'var(--color-text-on-primary)',
-                            onSecondary: 'var(--color-text-on-secondary)',
-                            disabled: 'var(--color-text-disabled)',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
+    
     <!-- Custom Styles -->
     <style>
         body {
@@ -80,6 +37,8 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+
+        /* System fonts are used - no external font dependencies */
 
         .gradient-text {
             background: linear-gradient(135deg, var(--color-primary-600), var(--color-secondary-600));
@@ -231,8 +190,11 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
-    <main class="min-h-screen pt-20">
+    <!-- Barba.js Container -->
+    <div data-barba="wrapper">
+        <div data-barba="container" data-barba-namespace="about">
+            <!-- Main Content -->
+            <main class="min-h-screen pt-20">
         <!-- Hero Section -->
         <section class="relative py-20 overflow-hidden">
             <!-- Background Pattern -->
@@ -244,7 +206,7 @@
                 <div class="max-w-4xl mx-auto">
                     <div class="flex flex-col lg:flex-row items-center gap-12">
                         <!-- Avatar Section -->
-                        <div class="flex-shrink-0" data-aos="fade-right">
+                        <div class="profile-section flex-shrink-0">
                             <div class="relative">
                                 <div class="w-48 h-48 lg:w-64 lg:h-64 rounded-full overflow-hidden avatar-glow">
                                     <div class="w-full h-full bg-gradient-to-br from-primary-400 to-secondary-600 flex items-center justify-center">
@@ -257,7 +219,7 @@
                         </div>
 
                         <!-- Profile Info -->
-                        <div class="text-center lg:text-left" data-aos="fade-left">
+                        <div class="intro-section text-center lg:text-left">
                             <h1 class="text-4xl lg:text-5xl font-bold mb-4">
                                 <span class="gradient-text" data-i18n="about.profile.name">liuzx</span>
                             </h1>
@@ -268,15 +230,15 @@
 
                             <!-- Quick Stats -->
                             <div class="grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0">
-                                <div class="text-center">
+                                <div class="skill-item text-center">
                                     <div class="text-2xl font-bold text-primary-600">AI</div>
                                     <div class="text-sm text-text-secondary">专注领域</div>
                                 </div>
-                                <div class="text-center">
+                                <div class="skill-item text-center">
                                     <div class="text-2xl font-bold text-primary-600">产品</div>
                                     <div class="text-sm text-text-secondary">创造导向</div>
                                 </div>
-                                <div class="text-center">
+                                <div class="skill-item text-center">
                                     <div class="text-2xl font-bold text-primary-600">创新</div>
                                     <div class="text-sm text-text-secondary">核心驱动</div>
                                 </div>
@@ -444,18 +406,33 @@
                 </div>
             </div>
         </div>
-    </footer>
+        </footer>
+    </main>
+        </div>
+    </div>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Barba.js Library -->
+    <script src="https://unpkg.com/@barba/core@2.9.7/dist/barba.umd.js"></script>
+
+    <!-- Barba.js Transitions -->
+    <script src="../assets/js/barba-transitions.js"></script>
+
+    <!-- Custom Scripts (only loaded for initial page) -->
     <script src="../assets/js/theme.js"></script>
     <script src="../assets/js/i18n.js"></script>
+    <script src="../assets/js/scrollreveal-config.js"></script>
     <script src="../assets/js/main.js"></script>
 
     <!-- Initialize Lucide Icons -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
         });
     </script>
 </body>

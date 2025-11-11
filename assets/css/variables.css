@@ -74,9 +74,9 @@
   --color-info-500: #3b82f6;
   --color-info-700: #1d4ed8;
 
-  /* Typography */
-  --font-family-primary: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+  /* Typography - System fonts only */
+  --font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, 'Noto Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+  --font-family-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', 'Menlo', 'Consolas', 'Cascadia Code', 'Fira Code', monospace;
 
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -186,6 +186,20 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+/* Restore default cursor for all elements */
+* {
+  cursor: auto !important;
+}
+
+/* Ensure interactive elements have appropriate cursors */
+[role="button"], button, a, input[type="button"], input[type="submit"], select {
+  cursor: pointer !important;
+}
+
+input[type="text"], input[type="email"], input[type="password"], textarea {
+  cursor: text !important;
 }
 
 /* Custom CSS Utilities */

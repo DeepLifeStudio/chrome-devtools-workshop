@@ -9,10 +9,10 @@
 
     <title data-i18n="gdgDevFest.title">GDG DevFest 2024</title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Using system fonts only - no external dependencies -->
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎉</text></svg>">
 
     <!-- Tailwind CSS -->
     <link href="../assets/css/styles.css" rel="stylesheet">
@@ -20,56 +20,13 @@
     <!-- Custom CSS Variables -->
     <link rel="stylesheet" href="../assets/css/variables.css">
 
-    <!-- AOS Animation Library -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!-- ScrollReveal Library -->
+    <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Tailwind Config -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'Noto Sans SC', 'system-ui', '-apple-system', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace']
-                    },
-                    colors: {
-                        primary: {
-                            50: 'var(--color-primary-50)',
-                            100: 'var(--color-primary-100)',
-                            200: 'var(--color-primary-200)',
-                            300: 'var(--color-primary-300)',
-                            400: 'var(--color-primary-400)',
-                            500: 'var(--color-primary-500)',
-                            600: 'var(--color-primary-600)',
-                            700: 'var(--color-primary-700)',
-                            800: 'var(--color-primary-800)',
-                            900: 'var(--color-primary-900)',
-                        },
-                        surface: {
-                            base: 'var(--color-surface-base)',
-                            elevated: 'var(--color-surface-elevated)',
-                            overlay: 'var(--color-surface-overlay)',
-                            inverse: 'var(--color-surface-inverse)',
-                        },
-                        text: {
-                            primary: 'var(--color-text-primary)',
-                            secondary: 'var(--color-text-secondary)',
-                            tertiary: 'var(--color-text-tertiary)',
-                            inverse: 'var(--color-text-inverse)',
-                            onPrimary: 'var(--color-text-on-primary)',
-                            onSecondary: 'var(--color-text-on-secondary)',
-                            disabled: 'var(--color-text-disabled)',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
+    
     <!-- Custom Styles -->
     <style>
         body {
@@ -194,8 +151,11 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
-    <main class="min-h-screen pt-20">
+    <!-- Barba.js Container -->
+    <div data-barba="wrapper">
+        <div data-barba="container" data-barba-namespace="gdg">
+            <!-- Main Content -->
+            <main class="min-h-screen pt-20">
         <!-- Hero Section -->
         <section class="relative py-20 overflow-hidden">
             <!-- Background Pattern -->
@@ -204,159 +164,169 @@
             </div>
 
             <div class="container mx-auto px-4 relative z-10">
-                <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-                    <h1 class="text-5xl md:text-7xl font-bold mb-6">
-                        <span class="gradient-text" data-i18n="gdgDevFest.title">GDG DevFest 2024</span>
+                <div class="max-w-4xl mx-auto text-center">
+                    <h1 class="hero-title text-5xl md:text-7xl font-bold mb-6">
+                        <span class="gradient-text">Google Developer Groups & DevFest</span>
                     </h1>
-                    <p class="text-xl md:text-2xl text-text-secondary mb-8" data-i18n="gdgDevFest.subtitle">
-                        全球开发者节日
+                    <p class="hero-subtitle text-xl md:text-2xl text-text-secondary mb-8">
+                        Connecting developers through community-led events worldwide
                     </p>
-                    <p class="text-lg text-text-secondary mb-12 leading-relaxed max-w-3xl mx-auto" data-i18n="gdgDevFest.about">
-                        Google Developer Groups DevFest 是全球性的开发者社区活动，汇聚了来自各地的技术爱好者和专业人士，共同分享最新的技术趋势和实践经验。
+                    <p class="hero-description text-lg text-text-secondary mb-12 leading-relaxed max-w-3xl mx-auto">
+                        DevFest is an annual, global, community-led tech conference organized by Google Developer Groups.
+                        It's a celebration of developer community, innovation, and learning.
                     </p>
 
                     <!-- Stats -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-                        <div class="p-6 surface-elevated rounded-xl border border-border-primary">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+                        <div class="stat-card p-6 surface-elevated rounded-xl border border-border-primary">
+                            <div class="text-3xl font-bold text-primary-600 mb-2">800K+</div>
+                            <div class="text-text-secondary text-sm">Global Developers</div>
+                        </div>
+                        <div class="stat-card p-6 surface-elevated rounded-xl border border-border-primary">
+                            <div class="text-3xl font-bold text-primary-600 mb-2">550+</div>
+                            <div class="text-text-secondary text-sm">DevFest Events</div>
+                        </div>
+                        <div class="stat-card p-6 surface-elevated rounded-xl border border-border-primary">
                             <div class="text-3xl font-bold text-primary-600 mb-2">100+</div>
-                            <div class="text-text-secondary text-sm">参与国家</div>
+                            <div class="text-text-secondary text-sm">Countries</div>
                         </div>
-                        <div class="p-6 surface-elevated rounded-xl border border-border-primary">
-                            <div class="text-3xl font-bold text-primary-600 mb-2">500+</div>
-                            <div class="text-text-secondary text-sm">组织者</div>
-                        </div>
-                        <div class="p-6 surface-elevated rounded-xl border border-border-primary">
-                            <div class="text-3xl font-bold text-primary-600 mb-2">50K+</div>
-                            <div class="text-text-secondary text-sm">开发者</div>
-                        </div>
-                        <div class="p-6 surface-elevated rounded-xl border border-border-primary">
-                            <div class="text-3xl font-bold text-primary-600 mb-2">1000+</div>
-                            <div class="text-text-secondary text-sm">活动场次</div>
+                        <div class="stat-card p-6 surface-elevated rounded-xl border border-border-primary">
+                            <div class="text-3xl font-bold text-primary-600 mb-2">1000s</div>
+                            <div class="text-text-secondary text-sm">Sessions</div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Highlights Section -->
+        <!-- Why Attend DevFest Section -->
         <section class="py-20 surface-elevated">
             <div class="container mx-auto px-4">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="text-4xl font-bold mb-4 gradient-text" data-i18n="gdgDevFest.highlights.title">活动亮点</h2>
-                    <p class="text-lg text-text-secondary max-w-2xl mx-auto">
-                        体验技术社区的活力，获得前沿知识的启发
-                    </p>
-                </div>
+                <h2 class="section-title text-4xl font-bold text-center mb-16 gradient-text">Why Attend DevFest?</h2>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-                    <!-- Community -->
-                    <div class="text-center" data-aos="fade-up" data-aos-delay="100">
-                        <div class="w-20 h-20 bg-primary-100 dark:bg-primary-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                            <i data-lucide="users-2" class="w-10 h-10 text-primary-600 dark:text-primary-400"></i>
+                <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
+                    <!-- Learn -->
+                    <div class="text-center">
+                        <div class="why-attend-icon w-20 h-20 bg-primary-100 dark:bg-primary-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i data-lucide="book-open" class="w-10 h-10 text-primary-600 dark:text-primary-400"></i>
                         </div>
-                        <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="gdgDevFest.highlights.community">强大的技术社区</h3>
-                        <p class="text-text-secondary leading-relaxed">
-                            连接全球开发者，建立有意义的合作关系和友谊
+                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary">Learn</h3>
+                        <p class="why-attend-description text-text-secondary leading-relaxed">
+                            Latest in Google technologies and open-source tools
                         </p>
                     </div>
 
-                    <!-- Learning -->
-                    <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-                        <div class="w-20 h-20 bg-secondary-100 dark:bg-secondary-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                            <i data-lucide="graduation-cap" class="w-10 h-10 text-secondary-600 dark:text-secondary-400"></i>
+                    <!-- Network -->
+                    <div class="text-center">
+                        <div class="why-attend-icon w-20 h-20 bg-secondary-100 dark:bg-secondary-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i data-lucide="users" class="w-10 h-10 text-secondary-600 dark:text-secondary-400"></i>
                         </div>
-                        <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="gdgDevFest.highlights.learning">前沿技术学习</h3>
-                        <p class="text-text-secondary leading-relaxed">
-                            接触最新的 Google 技术和开发趋势
+                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary">Network</h3>
+                        <p class="why-attend-description text-text-secondary leading-relaxed">
+                            With developers and industry experts
                         </p>
                     </div>
 
-                    <!-- Networking -->
-                    <div class="text-center" data-aos="fade-up" data-aos-delay="300">
-                        <div class="w-20 h-20 bg-accent-100 dark:bg-accent-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                            <i data-lucide="handshake" class="w-10 h-10 text-accent-600 dark:text-accent-400"></i>
+                    <!-- Hands-on -->
+                    <div class="text-center">
+                        <div class="why-attend-icon w-20 h-20 bg-accent-100 dark:bg-accent-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i data-lucide="code" class="w-10 h-10 text-accent-600 dark:text-accent-400"></i>
                         </div>
-                        <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="gdgDevFest.highlights.networking">行业人脉拓展</h3>
-                        <p class="text-text-secondary leading-relaxed">
-                            与行业专家和技术领袖面对面交流
+                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary">Hands-on</h3>
+                        <p class="why-attend-description text-text-secondary leading-relaxed">
+                            Experience through workshops and code labs
                         </p>
                     </div>
 
-                    <!-- Innovation -->
-                    <div class="text-center" data-aos="fade-up" data-aos-delay="400">
-                        <div class="w-20 h-20 bg-success-100 dark:bg-success-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                            <i data-lucide="lightbulb" class="w-10 h-10 text-success-600 dark:text-success-400"></i>
+                    <!-- Discover -->
+                    <div class="text-center">
+                        <div class="why-attend-icon w-20 h-20 bg-success-100 dark:bg-success-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i data-lucide="compass" class="w-10 h-10 text-success-600 dark:text-success-400"></i>
                         </div>
-                        <h3 class="text-xl font-semibold mb-3 text-text-primary" data-i18n="gdgDevFest.highlights.innovation">创新思维碰撞</h3>
-                        <p class="text-text-secondary leading-relaxed">
-                            激发创新想法，探索技术解决方案
+                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary">Discover</h3>
+                        <p class="why-attend-description text-text-secondary leading-relaxed">
+                            Innovative solutions and best practices
+                        </p>
+                    </div>
+
+                    <!-- Connect -->
+                    <div class="text-center">
+                        <div class="why-attend-icon w-20 h-20 bg-warning-100 dark:bg-warning-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i data-lucide="link" class="w-10 h-10 text-warning-600 dark:text-warning-400"></i>
+                        </div>
+                        <h3 class="why-attend-title text-xl font-semibold mb-3 text-text-primary">Connect</h3>
+                        <p class="why-attend-description text-text-secondary leading-relaxed">
+                            Build lasting developer community relationships
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Features Section -->
+        <!-- What are GDGs Section -->
         <section class="py-20 surface-base">
             <div class="container mx-auto px-4">
                 <div class="max-w-4xl mx-auto">
                     <h2 class="text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">
-                        DevFest 的独特价值
+                        What are Google Developer Groups?
                     </h2>
 
-                    <!-- Features Grid -->
-                    <div class="space-y-8">
-                        <!-- Feature 1 -->
-                        <div class="p-8 surface-elevated rounded-xl border border-border-primary card-hover" data-aos="fade-up">
-                            <div class="flex flex-col md:flex-row items-center gap-6">
-                                <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="award" class="w-8 h-8 text-primary-600 dark:text-primary-400"></i>
-                                </div>
-                                <div class="text-center md:text-left">
-                                    <h3 class="text-xl font-semibold mb-2 text-text-primary">官方认证</h3>
-                                    <p class="text-text-secondary">
-                                        由 Google 官方支持，确保内容质量和权威性，获得第一手的官方技术资讯
-                                    </p>
-                                </div>
+                    <div class="p-8 surface-elevated rounded-xl border border-border-primary mb-12">
+                        <div class="text-center">
+                            <i class="gdg-intro-icon data-lucide users" class="w-16 h-16 text-primary-600 mx-auto mb-6"></i>
+                            <div class="gdg-intro-text">
+                                <p class="text-lg text-text-secondary leading-relaxed mb-6">
+                                    Google Developer Groups (GDGs) are local communities of developers who come together to learn, share, and connect around Google technologies. These groups organize regular meetups, workshops, and events to help developers build solutions and grow their skills.
+                                </p>
+                                <p class="text-text-secondary leading-relaxed">
+                                    GDGs are not affiliated with Google but are developer-led groups passionate about technology and helping others succeed in their development journey. They provide a platform for developers to network, collaborate, and learn from each other.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="section-title text-4xl font-bold text-center mb-16 gradient-text">
+                        DevFest's Global Impact
+                    </h2>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Impact Card 1 -->
+                        <div class="impact-card p-8 surface-elevated rounded-xl border border-border-primary card-hover">
+                            <div class="text-center">
+                                <i data-lucide="heart" class="w-12 h-12 text-primary-600 mx-auto mb-4"></i>
+                                <h3 class="text-xl font-semibold mb-3 text-text-primary">Community Celebration</h3>
+                                <p class="text-text-secondary leading-relaxed">
+                                    DevFest brings together developers from all backgrounds, skill levels, and industries. It's a celebration of diversity, innovation, and the power of community.
+                                </p>
                             </div>
                         </div>
 
-                        <!-- Feature 2 -->
-                        <div class="p-8 surface-elevated rounded-xl border border-border-primary card-hover" data-aos="fade-up" data-aos-delay="100">
-                            <div class="flex flex-col md:flex-row items-center gap-6">
-                                <div class="w-16 h-16 bg-secondary-100 dark:bg-secondary-900 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="map" class="w-8 h-8 text-secondary-600 dark:text-secondary-400"></i>
-                                </div>
-                                <div class="text-center md:text-left">
-                                    <h3 class="text-xl font-semibold mb-2 text-text-primary">全球网络</h3>
-                                    <p class="text-text-secondary">
-                                        连接全球 GDG 社区，参与国际化的技术交流和文化体验
-                                    </p>
-                                </div>
+                        <!-- Impact Card 2 -->
+                        <div class="impact-card p-8 surface-elevated rounded-xl border border-border-primary card-hover">
+                            <div class="text-center">
+                                <i data-lucide="rocket" class="w-12 h-12 text-secondary-600 mx-auto mb-4"></i>
+                                <h3 class="text-xl font-semibold mb-3 text-text-primary">Building Future Leaders</h3>
+                                <p class="text-text-secondary leading-relaxed">
+                                    Many DevFest attendees go on to become speakers, organizers, open-source contributors, and tech leaders in their communities. It's about building the next generation of developers and innovators.
+                                </p>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Feature 3 -->
-                        <div class="p-8 surface-elevated rounded-xl border border-border-primary card-hover" data-aos="fade-up" data-aos-delay="200">
-                            <div class="flex flex-col md:flex-row items-center gap-6">
-                                <div class="w-16 h-16 bg-accent-100 dark:bg-accent-900 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <i data-lucide="target" class="w-8 h-8 text-accent-600 dark:text-accent-400"></i>
-                                </div>
-                                <div class="text-center md:text-left">
-                                    <h3 class="text-xl font-semibold mb-2 text-text-primary">实践导向</h3>
-                                    <p class="text-text-secondary">
-                                        理论与实践相结合，通过实际项目和技术演示加深理解
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Quote Section -->
+                    <div class="mt-16 p-8 bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-xl border border-border-primary impact-quote">
+                        <blockquote class="text-center text-xl text-text-secondary italic leading-relaxed">
+                            "The impact extends beyond the events themselves – it's about creating a global network of passionate developers who support each other's growth and contribute to building innovative solutions for tomorrow's challenges."
+                        </blockquote>
                     </div>
                 </div>
             </div>
         </section>
-    </main>
+        </main>
+    </div>
+</div>
 
-    <!-- Footer -->
+<!-- Footer -->
     <footer class="surface-elevated border-t border-border-primary py-12">
         <div class="container mx-auto px-4">
             <div class="text-center">
@@ -384,15 +354,26 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="../assets/js/theme.js"></script>
     <script src="../assets/js/i18n.js"></script>
+    <script src="../assets/js/scrollreveal-config.js"></script>
     <script src="../assets/js/main.js"></script>
+
+    <!-- GSAP Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Barba.js Library -->
+    <script src="https://unpkg.com/@barba/core@2.9.7/dist/barba.umd.js"></script>
+
+    <!-- Barba.js Transitions -->
+    <script src="../assets/js/barba-transitions.js"></script>
 
     <!-- Initialize Lucide Icons -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
         });
     </script>
 </body>
