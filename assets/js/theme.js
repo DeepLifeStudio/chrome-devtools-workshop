@@ -139,14 +139,9 @@ class ThemeManager {
       // Update button visual state
       button.setAttribute('data-current-theme', theme);
 
-      // Add visual feedback classes
-      if (theme === 'dark') {
-        button.classList.add('theme-dark-active');
-        button.classList.remove('theme-light-active');
-      } else {
-        button.classList.add('theme-light-active');
-        button.classList.remove('theme-dark-active');
-      }
+      // Remove all theme state classes (buttons should not have persistent active states)
+      button.classList.remove('theme-dark-active');
+      button.classList.remove('theme-light-active');
 
       // Update icon if present
       const icon = button.querySelector('[data-theme-icon]');
@@ -242,6 +237,13 @@ class ThemeManager {
       button.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
+
+        // Add temporary visual feedback
+        button.classList.add('theme-clicking');
+        setTimeout(() => {
+          button.classList.remove('theme-clicking');
+        }, 200);
+
         this.toggleTheme();
       });
 
