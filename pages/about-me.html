@@ -333,7 +333,7 @@
                         欢迎与我交流技术、产品想法或合作机会。我始终保持开放的态度，期待与有趣的人建立联系。
                     </p>
 
-                    <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+                    <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                         <!-- Email -->
                         <a href="mailto:1024jianghu@gmail.com" class="p-6 surface-elevated rounded-xl border border-border-primary hover:border-primary-300 transition-all duration-300 group">
                             <div class="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
@@ -342,6 +342,16 @@
                             <h3 class="font-semibold text-text-primary mb-2" data-i18n="about.contact.emailLabel">邮箱</h3>
                             <p class="text-text-secondary text-sm" data-i18n="about.contact.email">1024jianghu@gmail.com</p>
                         </a>
+
+                        <!-- WeChat -->
+                        <div class="p-6 surface-elevated rounded-xl border border-border-primary hover:border-primary-300 transition-all duration-300 group cursor-pointer" onclick="copyWeChatId()" id="wechat-card">
+                            <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="message-circle" class="w-8 h-8 text-green-600 dark:text-green-400"></i>
+                            </div>
+                            <h3 class="font-semibold text-text-primary mb-2">微信</h3>
+                            <p class="text-text-secondary text-sm">DeepLifeStudio</p>
+                            <p class="text-xs text-text-tertiary mt-2" id="wechat-hint">点击复制微信号</p>
+                        </div>
 
                         <!-- GitHub -->
                         <a href="https://github.com/DeepLifeStudio" target="_blank" rel="noopener noreferrer" class="p-6 surface-elevated rounded-xl border border-border-primary hover:border-primary-300 transition-all duration-300 group">
@@ -526,5 +536,54 @@
             }
         }
     </style>
+
+    <!-- Copy WeChat ID Script -->
+    <script>
+        function copyWeChatId() {
+            const wechatId = 'DeepLifeStudio';
+
+            navigator.clipboard.writeText(wechatId).then(() => {
+                // 更新提示文字
+                const hint = document.getElementById('wechat-hint');
+                const originalText = hint.textContent;
+                hint.textContent = '✓ 已复制微信号';
+                hint.classList.add('text-green-600');
+
+                // 2秒后恢复原始文字
+                setTimeout(() => {
+                    hint.textContent = originalText;
+                    hint.classList.remove('text-green-600');
+                }, 2000);
+
+                // 添加视觉反馈
+                const card = document.getElementById('wechat-card');
+                card.classList.add('ring-2', 'ring-green-500', 'ring-opacity-50');
+                setTimeout(() => {
+                    card.classList.remove('ring-2', 'ring-green-500', 'ring-opacity-50');
+                }, 500);
+            }).catch(err => {
+                console.error('复制失败:', err);
+                // 降级方案：传统的复制方法
+                const textArea = document.createElement('textarea');
+                textArea.value = wechatId;
+                textArea.style.position = 'fixed';
+                textArea.style.opacity = '0';
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+
+                // 显示成功提示
+                const hint = document.getElementById('wechat-hint');
+                const originalText = hint.textContent;
+                hint.textContent = '✓ 已复制微信号';
+                hint.classList.add('text-green-600');
+                setTimeout(() => {
+                    hint.textContent = originalText;
+                    hint.classList.remove('text-green-600');
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
