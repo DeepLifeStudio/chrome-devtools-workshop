@@ -348,9 +348,9 @@
                             <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                                 <i data-lucide="message-circle" class="w-8 h-8 text-green-600 dark:text-green-400"></i>
                             </div>
-                            <h3 class="font-semibold text-text-primary mb-2">微信</h3>
-                            <p class="text-text-secondary text-sm">DeepLifeStudio</p>
-                            <p class="text-xs text-text-tertiary mt-2" id="wechat-hint">点击复制微信号</p>
+                            <h3 class="font-semibold text-text-primary mb-2" data-i18n="about.contact.wechatLabel">微信</h3>
+                            <p class="text-text-secondary text-sm" data-i18n="about.contact.wechat">DeepLifeStudio</p>
+                            <p class="text-xs text-text-tertiary mt-2" id="wechat-hint" data-i18n="about.contact.wechatHint">点击复制微信号</p>
                         </div>
 
                         <!-- GitHub -->
@@ -543,10 +543,14 @@
             const wechatId = 'DeepLifeStudio';
 
             navigator.clipboard.writeText(wechatId).then(() => {
-                // 更新提示文字
+                // 获取当前语言和原始提示文字
+                const currentLang = document.documentElement.lang || 'zh-CN';
                 const hint = document.getElementById('wechat-hint');
                 const originalText = hint.textContent;
-                hint.textContent = '✓ 已复制微信号';
+
+                // 根据语言设置成功提示
+                const successText = currentLang === 'zh-CN' || currentLang === 'zh' ? '✓ 已复制微信号' : '✓ WeChat ID copied';
+                hint.textContent = successText;
                 hint.classList.add('text-green-600');
 
                 // 2秒后恢复原始文字
@@ -573,10 +577,13 @@
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
 
-                // 显示成功提示
+                // 显示成功提示（支持国际化）
+                const currentLang = document.documentElement.lang || 'zh-CN';
                 const hint = document.getElementById('wechat-hint');
                 const originalText = hint.textContent;
-                hint.textContent = '✓ 已复制微信号';
+                const successText = currentLang === 'zh-CN' || currentLang === 'zh' ? '✓ 已复制微信号' : '✓ WeChat ID copied';
+
+                hint.textContent = successText;
                 hint.classList.add('text-green-600');
                 setTimeout(() => {
                     hint.textContent = originalText;

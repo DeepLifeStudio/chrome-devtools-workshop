@@ -99,9 +99,14 @@
     },
     "contact": {
       "title": "Contact Information",
-      "email": "Email: xx@gmail.com",
-      "github": "GitHub Open Source Projects",
-      "linkedin": "LinkedIn Professional Profile"
+      "description": "Feel free to reach out to discuss technology, product ideas, or collaboration opportunities. I always maintain an open attitude and look forward to connecting with interesting people.",
+      "emailLabel": "Email",
+      "email": "1024jianghu@gmail.com",
+      "wechatLabel": "WeChat",
+      "wechat": "DeepLifeStudio",
+      "wechatHint": "Click to copy WeChat ID",
+      "githubLabel": "GitHub",
+      "github": "Open Source Projects"
     }
   },
   "common": {

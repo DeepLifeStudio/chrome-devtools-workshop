@@ -99,9 +99,14 @@
     },
     "contact": {
       "title": "联系方式",
-      "email": "邮箱：xx@gmail.com",
-      "github": "GitHub 开源项目",
-      "linkedin": "LinkedIn 职业档案"
+      "description": "欢迎与我交流技术、产品想法或合作机会。我始终保持开放的态度，期待与有趣的人建立联系。",
+      "emailLabel": "邮箱",
+      "email": "1024jianghu@gmail.com",
+      "wechatLabel": "微信",
+      "wechat": "DeepLifeStudio",
+      "wechatHint": "点击复制微信号",
+      "githubLabel": "GitHub",
+      "github": "开源项目"
     }
   },
   "common": {
